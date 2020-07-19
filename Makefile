@@ -1,10 +1,6 @@
-.PHONY: sql convert
+.PHONY: convert
 
-all: sql convert
-
-sql:
-	cd database && docker-compose down
-	cd database && docker-compose up -d db && sleep 20
+all: convert
 
 convert:
 	cd ontop-scripts && ./convert.sh
