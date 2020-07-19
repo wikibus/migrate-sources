@@ -15,7 +15,7 @@ else
 fi
 
 # download sql driver
-wget https://github.com/microsoft/mssql-jdbc/releases/download/v8.2.2/mssql-jdbc-8.2.2.jre13.jar -P ontop/jdbc/
+wget https://github.com/microsoft/mssql-jdbc/releases/download/v8.2.2/mssql-jdbc-8.2.2.jre8.jar -P ontop/jdbc/
 
 touch triples.nt
 BEFORE=$(wc -l triples.nt)
