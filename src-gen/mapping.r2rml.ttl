@@ -9,7 +9,7 @@ PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
 
 <#Brochure>
-	rr:logicalTable [ rr:sqlQuery """select top 3
+	rr:logicalTable [ rr:sqlQuery """select
 	       Id,
 	       Pages,
 	       Year,
@@ -27,7 +27,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
 	       case when value = '' then NULL else value end as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder'""" ];
+	where SourceType = 'folder' and Id = 11""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{Id}" ;
@@ -100,7 +100,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
 	]
 .
 <#BrochureLocation>
-	rr:logicalTable [ rr:sqlQuery """select top 3
+	rr:logicalTable [ rr:sqlQuery """select
 	       Id,
 	       Pages,
 	       Year,
@@ -118,7 +118,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
 	       case when value = '' then NULL else value end as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder'""" ];
+	where SourceType = 'folder' and Id = 11""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.wikibus.org/storage-location/{Id}" ;
@@ -139,7 +139,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
 	]
 .
 <#BrochureFile>
-	rr:logicalTable [ rr:sqlQuery """select top 3
+	rr:logicalTable [ rr:sqlQuery """select
 	       Id,
 	       Pages,
 	       Year,
@@ -157,7 +157,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
 	       case when value = '' then NULL else value end as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder'""" ];
+	where SourceType = 'folder' and Id = 11""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.wikibus.org/brochure/{Id}/file" ;
@@ -179,7 +179,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
 	]
 .
 <#BrochureImage>
-	rr:logicalTable [ rr:sqlQuery """select top 3
+	rr:logicalTable [ rr:sqlQuery """select
 	       Id,
 	       Pages,
 	       Year,
@@ -197,7 +197,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
 	       case when value = '' then NULL else value end as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder'""" ];
+	where SourceType = 'folder' and Id = 11""" ];
 	
 	rr:subjectMap [
 		rr:template "urn:brochure-image:{Id}" ;

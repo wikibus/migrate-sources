@@ -2,7 +2,7 @@ source-group wikibus {
 	type rdb
 
 	logical-source brochures {
-		source query "select top 3
+		source query "select
        Id,
        Pages,
        Year,
@@ -20,7 +20,7 @@ source-group wikibus {
        case when value = '' then NULL else value end as Language
 from Sources.Source
 CROSS APPLY STRING_SPLIT(Languages, ';')
-where SourceType = 'folder'"
+where SourceType = 'folder' and Id = 11"
 
 		referenceables
 			Id
