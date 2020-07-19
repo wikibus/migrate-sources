@@ -15,11 +15,11 @@ else
 fi
 
 # download sql driver
-wget https://github.com/microsoft/mssql-jdbc/releases/download/v8.2.2/mssql-jdbc-8.2.2.jre8.jar -P ontop/jdbc/
+wget https://github.com/microsoft/mssql-jdbc/releases/download/v8.2.2/mssql-jdbc-8.2.2.jre8.jar -P ontop/jdbc/ -c
 
-echo "jdbc.url=$SQL_URL" > sql.properties
-echo "jdbc.user=$SQL_USERNAME" > sql.properties
-echo "jdbc.password=$SQL_PASSWORD" > sql.properties
+echo "jdbc.url=$SQL_URL" >> sql.properties
+echo "jdbc.user=$SQL_USERNAME" >> sql.properties
+echo "jdbc.password=$SQL_PASSWORD" >> sql.properties
 
 touch triples.nt
 BEFORE=$(wc -l triples.nt)
