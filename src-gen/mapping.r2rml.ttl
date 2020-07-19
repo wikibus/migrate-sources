@@ -24,7 +24,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       case when value = '' then NULL else value end as Language
+	       IIF(value = '', NULL, value) as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id = 11""" ];
@@ -33,7 +33,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:template "https://sources.test.wikibus.org/brochure/{Id}" ;
 		rr:class wbo:Source ;
 		rr:class wbo:Brochure ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{Id}" ]
 	];
 	
 	rr:predicateObjectMap [
@@ -116,14 +115,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       case when value = '' then NULL else value end as Language
+	       IIF(value = '', NULL, value) as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id = 11""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.wikibus.org/storage-location/{Id}" ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{Id}" ]
 	];
 	
 	rr:predicateObjectMap [
@@ -156,7 +154,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       case when value = '' then NULL else value end as Language
+	       IIF(value = '', NULL, value) as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id = 11""" ];
@@ -164,7 +162,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:subjectMap [
 		rr:template "https://sources.wikibus.org/brochure/{Id}/file" ;
 		rr:class schema:MediaObject ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{Id}" ]
 	];
 	
 	rr:predicateObjectMap [
@@ -197,14 +194,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       case when value = '' then NULL else value end as Language
+	       IIF(value = '', NULL, value) as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id = 11""" ];
 	
 	rr:subjectMap [
 		rr:template "urn:brochure-image:{Id}" ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{Id}" ]
 	];
 	
 	rr:predicateObjectMap [

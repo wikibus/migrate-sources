@@ -17,7 +17,7 @@ source-group wikibus {
        Updated,
        ContentSize,
        ContentUrl,
-       case when value = '' then NULL else value end as Language
+       IIF(value = '', NULL, value) as Language
 from Sources.Source
 CROSS APPLY STRING_SPLIT(Languages, ';')
 where SourceType = 'folder' and Id = 11"
