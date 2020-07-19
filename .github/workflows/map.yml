@@ -19,7 +19,6 @@ jobs:
             ${{ runner.os }}-deps-
             ${{ runner.os }}-
       - run: make
-        with:
         env:
           SQL_URL: ${{ secrets.SQL_URL }}
           SQL_USERNAME: ${{ secrets.SQL_USERNAME }}
