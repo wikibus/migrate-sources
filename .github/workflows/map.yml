@@ -23,6 +23,7 @@ jobs:
           SQL_URL: ${{ secrets.SQL_URL }}
           SQL_USERNAME: ${{ secrets.SQL_USERNAME }}
           SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
+          SPARQL_GRAPH_STORE: ${{ secrets.SPARQL_GRAPH_STORE }}
       - uses: actions/upload-artifact@v2
         with:
           name: triples.nt
