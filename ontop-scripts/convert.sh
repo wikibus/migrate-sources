@@ -30,4 +30,4 @@ AFTER=$(wc -l triples.nt)
 echo "wc -l triples.nt BEFORE: $BEFORE"
 echo "wc -l triples.nt AFTER:  $AFTER"
 
-curl -X PUT -T ./triples.nt -H "Content-Type: application/n-quads" $SPARQL_GRAPH_STORE
+curl -X PUT -T ./triples.nt -H "Content-Type: application/n-quads" $SPARQL_GRAPH_STORE -L
