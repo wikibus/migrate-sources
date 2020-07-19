@@ -1,71 +1,212 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
-PREFIX ex: <http://example.com/ns#>
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
+PREFIX opus: <http://lsdis.cs.uga.edu/projects/semdis/opus#>
 PREFIX schema: <http://schema.org/>
+PREFIX wba: <https://wikibus.org/api#>
+PREFIX wbo: <https://wikibus.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
 
-<#Employee>
-	rr:logicalTable [ rr:tableName "EMP2" ];
+<#Brochure>
+	rr:logicalTable [ rr:sqlQuery """select top 3
+	       Id,
+	       Pages,
+	       Year,
+	       Month,
+	       Day,
+	       Notes,
+	       FileCabinet,
+	       FileOffset,
+	       FolderCode,
+	       FolderName,
+	       [User],
+	       Updated,
+	       ContentSize,
+	       ContentUrl,
+	       case when value = '' then NULL else value end as Language
+	from Sources.Source
+	CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "http://data.example.com/employee/{EMPNO}" ;
-		rr:class ex:Employee ;
+		rr:template "https://sources.test.wikibus.org/brochure/{Id}" ;
+		rr:class wbo:Source ;
+		rr:class wbo:Brochure ;
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate ex:name ;
+		rr:predicate bibo:pages ;
 		rr:objectMap [
-			rr:column "ENAME" ;
+			rr:column "Pages" ;
+			rr:datatype xsd:int ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate opus:year ;
+		rr:objectMap [
+			rr:column "Year" ;
+			rr:datatype xsd:gYear ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate opus:month ;
+		rr:objectMap [
+			rr:column "Month" ;
+			rr:datatype xsd:gMonth ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:storageLocation ;
+		rr:objectMap [
+			rr:template "https://sources.wikibus.org/storage-location/{Id}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:language ;
+		rr:objectMap [
+			rr:template "http://lexvo.org/id/iso639-1/{Language}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:title ;
+		rr:objectMap [
+			rr:column "FolderName" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:description ;
+		rr:objectMap [
+			rr:column "Notes" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:contributor ;
+		rr:objectMap [
+			rr:template "https://users.wikibus.org/user/{User}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:associatedMedia ;
+		rr:objectMap [
+			rr:template "https://sources.wikibus.org/brochure/{Id}/file" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:image ;
+		rr:objectMap [
+			rr:template "urn:brochure-image:{Id}" ;
 		];
 	]
 .
-<#Department>
-	rr:logicalTable [ rr:tableName "DEPT2" ];
+<#BrochureLocation>
+	rr:logicalTable [ rr:sqlQuery """select top 3
+	       Id,
+	       Pages,
+	       Year,
+	       Month,
+	       Day,
+	       Notes,
+	       FileCabinet,
+	       FileOffset,
+	       FolderCode,
+	       FolderName,
+	       [User],
+	       Updated,
+	       ContentSize,
+	       ContentUrl,
+	       case when value = '' then NULL else value end as Language
+	from Sources.Source
+	CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "http://data.example.com/department/{DEPTNO}" ;
-		rr:class ex:Department ;
+		rr:template "https://sources.wikibus.org/storage-location/{Id}" ;
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate ex:name ;
+		rr:predicate dcterms:identifier ;
 		rr:objectMap [
-			rr:column "DNAME" ;
-			rr:language "en" ;
+			rr:column "FileCabinet" ;
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate schema:location ;
+		rr:predicate dtype:position ;
 		rr:objectMap [
-			rr:template "http://data.example.com/location/{LOC}" ;
+			rr:column "FileOffset" ;
+			rr:datatype xsd:int ;
 		];
 	]
 .
-<#Employee2Department>
-	rr:logicalTable [ rr:tableName "EMP2DEPT" ];
+<#BrochureFile>
+	rr:logicalTable [ rr:sqlQuery """select top 3
+	       Id,
+	       Pages,
+	       Year,
+	       Month,
+	       Day,
+	       Notes,
+	       FileCabinet,
+	       FileOffset,
+	       FolderCode,
+	       FolderName,
+	       [User],
+	       Updated,
+	       ContentSize,
+	       ContentUrl,
+	       case when value = '' then NULL else value end as Language
+	from Sources.Source
+	CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "http://data.example.com/employee/{EMPNO}" ;
+		rr:template "https://sources.wikibus.org/brochure/{Id}/file" ;
+		rr:class schema:MediaObject ;
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate ex:department ;
+		rr:predicate schema:contentSize ;
 		rr:objectMap [
-			rr:template "http://data.example.com/department/{DEPTNO}" ;
+			rr:column "ContentSize" ;
+			rr:datatype xsd:long ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:encodingFormat ;
+		rr:objectMap [
+			rr:constant "application/pdf" ;
 		];
 	]
 .
-<#Location>
-	rr:logicalTable [ rr:tableName "DEPT2" ];
+<#BrochureImage>
+	rr:logicalTable [ rr:sqlQuery """select top 3
+	       Id,
+	       Pages,
+	       Year,
+	       Month,
+	       Day,
+	       Notes,
+	       FileCabinet,
+	       FileOffset,
+	       FolderCode,
+	       FolderName,
+	       [User],
+	       Updated,
+	       ContentSize,
+	       ContentUrl,
+	       case when value = '' then NULL else value end as Language
+	from Sources.Source
+	CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "http://data.example.com/location/{LOC}" ;
-		rr:class schema:Place ;
+		rr:template "urn:brochure-image:{Id}" ;
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate schema:name ;
+		rr:predicate schema:contentUrl ;
 		rr:objectMap [
-			rr:column "LOC" ;
-			rr:language "en" ;
+			rr:template "https://wikibus-sources.herokuapp.com/brochure/{Id}/image" ;
 		];
 	]
 .

@@ -1,44 +1,57 @@
 output r2rml
 
-template employeeIRI "http://data.example.com/employee/{0}"
-template departmentIRI "http://data.example.com/department/{0}"
-template locationIRI "http://data.example.com/location/{0}"
+template brochureId "https://sources.test.wikibus.org/brochure/{0}"
+template brochureLocationId "https://sources.wikibus.org/storage-location/{0}"
+template fileCabinetId "https://sources.test.wikibus.org/file-cabinet/{0}"
+template brochurePdfId "https://sources.wikibus.org/brochure/{0}/file"
+template legacyImageId "urn:brochure-image:{0}"
+template languageId "http://lexvo.org/id/iso639-1/{0}"
+template userId "https://users.wikibus.org/user/{0}"
+template date "{0}-{1}-{2}"
 
-map Employee from exampledatabase.employee {
-	subject template employeeIRI with EMPNO;
-
-	types
-		ex.Employee
-
-	properties
-		ex.name from ENAME;
-}
-
-map Department from exampledatabase.department {
-	subject template departmentIRI with DEPTNO;
+map Brochure from wikibus.brochures {
+	subject template brochureId with Id;
 
 	types
-		ex.Department
+		wbo.Source
+		wbo.Brochure
 
 	properties
-		ex.name from DNAME with language-tag en;
-		schema.location template locationIRI with LOC;
+		bibo.pages from Pages with datatype xsd.int;
+		opus.year from Year with datatype xsd.gYear;
+		opus.month from Month with datatype xsd.gMonth;
+		// dcterms.date template date with Year Month Day;
+		wba.storageLocation template brochureLocationId with Id;
+		dcterms.language template languageId with Language;
+		dcterms.title from FolderName;
+		dcterms.description from Notes;
+		schema.contributor template userId with User;
+		schema.associatedMedia template brochurePdfId with Id;
+		schema.image template legacyImageId with Id;
 }
 
-map Employee2Department from exampledatabase.employee_department {
-	subject template employeeIRI with EMPNO;
+map BrochureLocation from wikibus.brochures {
+	subject template brochureLocationId with Id;
 
 	properties
-		ex.department template departmentIRI with DEPTNO;
+		dcterms.identifier from FileCabinet;
+		dtype.position from FileOffset with datatype xsd.int;
 }
 
-
-map Location from exampledatabase.department {
-	subject template locationIRI with LOC;
+map BrochureFile from wikibus.brochures {
+	subject template brochurePdfId with Id;
 
 	types
-		schema.Place
+		schema.MediaObject
 
 	properties
-		schema.name from LOC with language-tag en;
+		schema.contentSize from ContentSize with datatype xsd.long;
+		schema.encodingFormat constant "application/pdf";
+}
+
+map BrochureImage from wikibus.brochures {
+	subject template legacyImageId with Id;
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with Id;
 }

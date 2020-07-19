@@ -2,26 +2,84 @@ language-tags {
 	en
 }
 
-vocabulary ex {
-	prefix "ex" "http://example.com/ns#"
+vocabulary wbo {
+	prefix "wbo" "https://wikibus.org/ontology#"
 
 	classes
-		Employee
-		Department
+		Brochure
+		Source
 
 	properties
 		name
 		department
 }
 
+vocabulary wba {
+	prefix "wba" "https://wikibus.org/api#"
+
+	properties
+		images
+		storageLocation
+		wishlistItem
+}
+
+vocabulary opus {
+	prefix "opus" "http://lsdis.cs.uga.edu/projects/semdis/opus#"
+
+	properties
+		year
+		month
+}
+
+vocabulary bibo {
+	prefix "bibo" "http://purl.org/ontology/bibo/"
+
+	properties
+		pages
+}
+
+vocabulary xsd {
+	prefix "xsd" "http://www.w3.org/2001/XMLSchema"
+
+	datatypes
+		int
+		gYear
+		gMonth
+		long
+}
+
+vocabulary dcterms {
+	prefix "dcterms" "http://purl.org/dc/terms/"
+
+	properties
+		identifier
+		date
+		language
+		title
+		description
+}
+
+vocabulary dtype {
+	prefix "dtype" "http://www.linkedmodel.org/schema/dtype#"
+
+	properties
+		position
+}
+
 vocabulary schema {
 	prefix "schema" "http://schema.org/"
 
 	classes
-		Place
+		MediaObject
 
 	properties
 		location
 		name
+		contributor
+		associatedMedia
+		image
+		encodingFormat
+		contentSize
+		contentUrl
 }
 

@@ -1,29 +1,43 @@
-source-group exampledatabase {
+source-group wikibus {
 	type rdb
 
-	logical-source employee {
-		source "EMP2"
+	logical-source brochures {
+		source query "select top 3
+       Id,
+       Pages,
+       Year,
+       Month,
+       Day,
+       Notes,
+       FileCabinet,
+       FileOffset,
+       FolderCode,
+       FolderName,
+       [User],
+       Updated,
+       ContentSize,
+       ContentUrl,
+       case when value = '' then NULL else value end as Language
+from Sources.Source
+CROSS APPLY STRING_SPLIT(Languages, ';')
+where SourceType = 'folder'"
 
 		referenceables
-			EMPNO
-			ENAME
-			JOB
-	}
+			Id
+			Pages
+			Year
+			Month
+			Day
+			Notes
+			FileCabinet
+			FileOffset
+			FolderCode
+			FolderName
+			User
+			Updated
+			ContentSize
+			ContentUrl
+			Language
 
-	logical-source department {
-		source "DEPT2"
-
-		referenceables
-			DEPTNO
-			DNAME
-			LOC
-	}
-
-	logical-source employee_department {
-		source "EMP2DEPT"
-
-		referenceables
-			EMPNO
-			DEPTNO
 	}
 }
