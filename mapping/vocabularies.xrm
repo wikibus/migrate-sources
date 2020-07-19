@@ -39,7 +39,7 @@ vocabulary bibo {
 }
 
 vocabulary xsd {
-	prefix "xsd" "http://www.w3.org/2001/XMLSchema"
+	prefix "xsd" "http://www.w3.org/2001/XMLSchema#"
 
 	datatypes
 		int
