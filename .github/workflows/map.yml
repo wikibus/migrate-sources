@@ -19,6 +19,11 @@ jobs:
             ${{ runner.os }}-deps-
             ${{ runner.os }}-
       - run: make
+        with:
+        env:
+          SQL_URL: ${{ secrets.SQL_URL }}
+          SQL_USERNAME: ${{ secrets.SQL_USERNAME }}
+          SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
       - uses: actions/upload-artifact@v2
         with:
           name: triples.nt
