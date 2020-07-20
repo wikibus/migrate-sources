@@ -78,9 +78,13 @@ vocabulary schema {
 		contributor
 		associatedMedia
 		image
+		primaryImageOfPage
 		encodingFormat
 		contentSize
 		contentUrl
 		thumbnail
+
+	datatypes
+		URL
 }
 

@@ -20,14 +20,16 @@ map Brochure from wikibus.brochures {
 		bibo.pages from Pages with datatype xsd.int;
 		opus.year from Year with datatype xsd.gYear;
 		opus.month from Month with datatype xsd.gMonth;
-		// dcterms.date template date with Year Month Day;
+		dcterms.date template date with Year Month Day;
 		wba.storageLocation template brochureLocationId with Id;
 		dcterms.language template languageId with Language;
 		dcterms.title from FolderName;
 		dcterms.description from Notes;
+		dcterms.identifier from FolderCode;
 		schema.contributor template userId with User;
 		schema.associatedMedia template brochurePdfId with Id;
-		schema.image template legacyImageId with Id;
+		schema.image template legacyImageId with Id as BlankNode;
+		schema.primaryImageOfPage template legacyImageId with Id as BlankNode;
 }
 
 map BrochureLocation from wikibus.brochures {
@@ -53,7 +55,7 @@ map BrochureImage from wikibus.brochures {
 	subject template legacyImageId with Id as BlankNode;
 
 	properties
-		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with Id;
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with Id as Literal;
 		schema.thumbnail template "brochure-image-thumb-{0}" with Id as BlankNode;
 }
 
@@ -61,5 +63,5 @@ map BrochureImageThumbnail from wikibus.brochures {
 	subject template "brochure-image-thumb-{0}" with Id as BlankNode;
 
 	properties
-		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image/small" with Id;
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image/small" with Id as Literal;
 }

@@ -20,7 +20,7 @@ source-group wikibus {
        IIF(rtrim(value) = '', NULL, value) as Language
 from Sources.Source
 CROSS APPLY STRING_SPLIT(Languages, ';')
-where SourceType = 'folder' and Id = 11"
+where SourceType = 'folder' and Id in (11, 3420)"
 
 		referenceables
 			Id
