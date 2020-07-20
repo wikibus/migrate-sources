@@ -17,7 +17,8 @@ source-group wikibus {
        Updated,
        ContentSize,
        ContentUrl,
-       IIF(rtrim(value) = '', NULL, value) as Language
+       IIF(rtrim(value) = '', NULL, value) as Language,
+	   IIF(Image is NULL, NULL, Id) as LegacyImage
 from Sources.Source
 CROSS APPLY STRING_SPLIT(Languages, ';')
 where SourceType = 'folder' and Id in (11, 3420)"
@@ -38,6 +39,7 @@ where SourceType = 'folder' and Id in (11, 3420)"
 			ContentSize
 			ContentUrl
 			Language
+			LegacyImage
 
 	}
 

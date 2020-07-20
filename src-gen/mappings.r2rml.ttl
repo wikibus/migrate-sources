@@ -24,7 +24,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       IIF(rtrim(value) = '', NULL, value) as Language
+	       IIF(rtrim(value) = '', NULL, value) as Language,
+		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id in (11, 3420)""" ];
@@ -107,14 +108,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:image ;
 		rr:objectMap [
-			rr:template "brochure-image-{Id}" ;
+			rr:template "brochure-image-{LegacyImage}" ;
 			rr:termType rr:BlankNode ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:primaryImageOfPage ;
 		rr:objectMap [
-			rr:template "brochure-image-{Id}" ;
+			rr:template "brochure-image-{LegacyImage}" ;
 			rr:termType rr:BlankNode ;
 		];
 	]
@@ -135,7 +136,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       IIF(rtrim(value) = '', NULL, value) as Language
+	       IIF(rtrim(value) = '', NULL, value) as Language,
+		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id in (11, 3420)""" ];
@@ -174,7 +176,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       IIF(rtrim(value) = '', NULL, value) as Language
+	       IIF(rtrim(value) = '', NULL, value) as Language,
+		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id in (11, 3420)""" ];
@@ -214,13 +217,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       IIF(rtrim(value) = '', NULL, value) as Language
+	       IIF(rtrim(value) = '', NULL, value) as Language,
+		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id in (11, 3420)""" ];
 	
 	rr:subjectMap [
-		rr:template "brochure-image-{Id}" ;
+		rr:template "brochure-image-{LegacyImage}" ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
@@ -256,7 +260,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       IIF(rtrim(value) = '', NULL, value) as Language
+	       IIF(rtrim(value) = '', NULL, value) as Language,
+		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id in (11, 3420)""" ];

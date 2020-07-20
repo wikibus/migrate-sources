@@ -29,8 +29,8 @@ map Brochure from wikibus.brochures {
 		dcterms.identifier from FolderCode;
 		schema.contributor template userId with User;
 		schema.associatedMedia template brochurePdfId with Id;
-		schema.image template legacyImageId with Id as BlankNode;
-		schema.primaryImageOfPage template legacyImageId with Id as BlankNode;
+		schema.image template legacyImageId with LegacyImage as BlankNode;
+		schema.primaryImageOfPage template legacyImageId with LegacyImage as BlankNode;
 }
 
 map BrochureLocation from wikibus.brochures {
@@ -53,7 +53,7 @@ map BrochureFile from wikibus.brochures {
 }
 
 map BrochureLegacyImage from wikibus.brochures {
-	subject template legacyImageId with Id as BlankNode;
+	subject template legacyImageId with LegacyImage as BlankNode;
 
     types
         schema.ImageObject
