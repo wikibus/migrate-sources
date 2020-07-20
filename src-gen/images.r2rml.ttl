@@ -18,15 +18,11 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#BrochurePrimaryImage>
-	rr:logicalTable [ rr:sqlQuery """WITH summary AS (
-	    SELECT i.SourceId,
-	           i.ExternalId,
-	           ROW_NUMBER() OVER(PARTITION BY i.SourceId
-	               ORDER BY i.OrderIndex DESC) AS rk
-	    FROM Sources.Images i)
-	SELECT s.*
-	FROM summary s
-	WHERE s.rk = 1""" ];
+	rr:logicalTable [ rr:sqlQuery """
+	    SELECT SourceId,
+	           ExternalId
+	    FROM Sources.Images
+		WHERE OrderIndex = 1""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;

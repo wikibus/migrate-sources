@@ -42,15 +42,11 @@ where SourceType = 'folder' and Id in (11, 3420)"
 	}
 
 	logical-source primaryImages {
-		source query "WITH summary AS (
-    SELECT i.SourceId,
-           i.ExternalId,
-           ROW_NUMBER() OVER(PARTITION BY i.SourceId
-               ORDER BY i.OrderIndex DESC) AS rk
-    FROM Sources.Images i)
-SELECT s.*
-FROM summary s
-WHERE s.rk = 1"
+		source query "
+    SELECT SourceId,
+           ExternalId
+    FROM Sources.Images
+	WHERE OrderIndex = 1"
 
 		referenceables
 			SourceId
