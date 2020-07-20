@@ -1,8 +1,8 @@
 output r2rml
 
-template brochureId "https://sources.test.wikibus.org/brochure/{0}"
+template brochureId "https://sources.wikibus.org/brochure/{0}"
 template brochureLocationId "https://sources.wikibus.org/storage-location/{0}"
-template fileCabinetId "https://sources.test.wikibus.org/file-cabinet/{0}"
+template fileCabinetId "https://sources.wikibus.org/file-cabinet/{0}"
 template brochurePdfId "https://sources.wikibus.org/brochure/{0}/file"
 template legacyImageId "brochure-image-{0}"
 template languageId "http://lexvo.org/id/iso639-1/{0}"
@@ -31,6 +31,7 @@ map Brochure from wikibus.brochures {
 		schema.associatedMedia template brochurePdfId with Id;
 		schema.image template legacyImageId with LegacyImage as BlankNode;
 		schema.primaryImageOfPage template legacyImageId with LegacyImage as BlankNode;
+		dtype.orderIndex from Version;
 }
 
 map BrochureLocation from wikibus.brochures {
@@ -50,6 +51,7 @@ map BrochureFile from wikibus.brochures {
 	properties
 		schema.contentSize from ContentSize with datatype xsd.long;
 		schema.encodingFormat constant "application/pdf";
+		schema.contentUrl from ContentUrl with datatype schema.URL;
 }
 
 map BrochureLegacyImage from wikibus.brochures {
@@ -107,4 +109,11 @@ map ImageThumbnail from wikibus.images {
 
     properties
         schema.contentUrl from ThumbnailUrl with datatype schema.URL;
+}
+
+map User from wikibus.users {
+	subject template userId with UserId;
+
+	properties
+		wba.driveImportFolder from DriveImportFolder;
 }

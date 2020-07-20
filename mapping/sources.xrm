@@ -14,7 +14,7 @@ source-group wikibus {
        FolderCode,
        FolderName,
        [User],
-       Updated,
+       cast(Updated as BIGINT) as Version,
        ContentSize,
        ContentUrl,
        IIF(rtrim(value) = '', NULL, value) as Language,
@@ -35,7 +35,7 @@ where SourceType = 'folder' and Id in (11, 3420)"
 			FolderCode
 			FolderName
 			User
-			Updated
+			Version
 			ContentSize
 			ContentUrl
 			Language
@@ -65,5 +65,13 @@ where SourceType = 'folder' and Id in (11, 3420)"
 			ThumbnailUrl
 			ExternalId
 			OrderIndex
+	}
+
+	logical-source users {
+		source "Sources.Users"
+
+		referenceables
+			UserId
+			DriveImportFolder
 	}
 }

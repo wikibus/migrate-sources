@@ -21,6 +21,7 @@ vocabulary wba {
 		images
 		storageLocation
 		wishlistItem
+		driveImportFolder
 }
 
 vocabulary opus {

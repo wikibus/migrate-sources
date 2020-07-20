@@ -21,7 +21,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderCode,
 	       FolderName,
 	       [User],
-	       Updated,
+	       cast(Updated as BIGINT) as Version,
 	       ContentSize,
 	       ContentUrl,
 	       IIF(rtrim(value) = '', NULL, value) as Language,
@@ -31,7 +31,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where SourceType = 'folder' and Id in (11, 3420)""" ];
 	
 	rr:subjectMap [
-		rr:template "https://sources.test.wikibus.org/brochure/{Id}" ;
+		rr:template "https://sources.wikibus.org/brochure/{Id}" ;
 		rr:class wbo:Source ;
 		rr:class wbo:Brochure ;
 	];
@@ -118,6 +118,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 			rr:template "brochure-image-{LegacyImage}" ;
 			rr:termType rr:BlankNode ;
 		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dtype:orderIndex ;
+		rr:objectMap [
+			rr:column "Version" ;
+		];
 	]
 .
 <#BrochureLocation>
@@ -133,7 +139,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderCode,
 	       FolderName,
 	       [User],
-	       Updated,
+	       cast(Updated as BIGINT) as Version,
 	       ContentSize,
 	       ContentUrl,
 	       IIF(rtrim(value) = '', NULL, value) as Language,
@@ -173,7 +179,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderCode,
 	       FolderName,
 	       [User],
-	       Updated,
+	       cast(Updated as BIGINT) as Version,
 	       ContentSize,
 	       ContentUrl,
 	       IIF(rtrim(value) = '', NULL, value) as Language,
@@ -199,6 +205,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:constant "application/pdf" ;
 		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:column "ContentUrl" ;
+			rr:datatype schema:URL ;
+		];
 	]
 .
 <#BrochureLegacyImage>
@@ -214,7 +227,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderCode,
 	       FolderName,
 	       [User],
-	       Updated,
+	       cast(Updated as BIGINT) as Version,
 	       ContentSize,
 	       ContentUrl,
 	       IIF(rtrim(value) = '', NULL, value) as Language,
@@ -257,7 +270,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderCode,
 	       FolderName,
 	       [User],
-	       Updated,
+	       cast(Updated as BIGINT) as Version,
 	       ContentSize,
 	       ContentUrl,
 	       IIF(rtrim(value) = '', NULL, value) as Language,
@@ -284,7 +297,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:tableName "Sources.Images" ];
 	
 	rr:subjectMap [
-		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
+		rr:template "https://sources.wikibus.org/brochure/{SourceId}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -302,7 +315,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		WHERE OrderIndex = 1""" ];
 	
 	rr:subjectMap [
-		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
+		rr:template "https://sources.wikibus.org/brochure/{SourceId}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -356,6 +369,20 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:column "ThumbnailUrl" ;
 			rr:datatype schema:URL ;
+		];
+	]
+.
+<#User>
+	rr:logicalTable [ rr:tableName "Sources.Users" ];
+	
+	rr:subjectMap [
+		rr:template "https://users.wikibus.org/user/{UserId}" ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate wba:driveImportFolder ;
+		rr:objectMap [
+			rr:column "DriveImportFolder" ;
 		];
 	]
 .
