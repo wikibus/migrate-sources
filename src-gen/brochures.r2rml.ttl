@@ -221,6 +221,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "brochure-image-{Id}" ;
+		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
 	
@@ -262,6 +263,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "brochure-image-thumb-{Id}" ;
+		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
 	

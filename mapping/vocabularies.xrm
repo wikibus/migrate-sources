@@ -64,6 +64,7 @@ vocabulary dtype {
 
 	properties
 		position
+		orderIndex
 }
 
 vocabulary schema {
@@ -71,6 +72,7 @@ vocabulary schema {
 
 	classes
 		MediaObject
+		ImageObject
 
 	properties
 		location

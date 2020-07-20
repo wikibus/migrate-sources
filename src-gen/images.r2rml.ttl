@@ -1,0 +1,87 @@
+PREFIX rr: <http://www.w3.org/ns/r2rml#>
+PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+<#BrochureImage>
+	rr:logicalTable [ rr:tableName "Source.Images" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:image ;
+		rr:objectMap [
+			rr:template "https://sources.wikibus.org/image/{ExternalId}" ;
+		];
+	]
+.
+<#BrochurePrimaryImage>
+	rr:logicalTable [ rr:sqlQuery """WITH summary AS (
+	    SELECT i.SourceId,
+	           i.ExternalId,
+	           ROW_NUMBER() OVER(PARTITION BY i.SourceId
+	               ORDER BY i.OrderIndex DESC) AS rk
+	    FROM Sources.Images i)
+	SELECT s.*
+	FROM summary s
+	WHERE s.rk = 1""" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:primaryImageOfPage ;
+		rr:objectMap [
+			rr:template "https://sources.wikibus.org/image/{ExternalId}" ;
+		];
+	]
+.
+<#Image>
+	rr:logicalTable [ rr:tableName "Source.Images" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.wikibus.org/image/{ExternalId}" ;
+		rr:class schema:ImageObject ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:column "OriginalUrl" ;
+			rr:datatype schema:URL ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:thumbnail ;
+		rr:objectMap [
+			rr:template "cloudinary-image-{Id}" ;
+			rr:termType rr:BlankNode ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dtype:orderIndex ;
+		rr:objectMap [
+			rr:column "OrderIndex" ;
+			rr:datatype xsd:int ;
+		];
+	]
+.
+<#ImageThumbnail>
+	rr:logicalTable [ rr:tableName "Source.Images" ];
+	
+	rr:subjectMap [
+		rr:template "cloudinary-image-{Id}" ;
+		rr:class schema:ImageObject ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:column "ThumbnailUrl" ;
+			rr:datatype schema:URL ;
+		];
+	]
+.

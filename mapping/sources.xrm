@@ -40,4 +40,32 @@ where SourceType = 'folder' and Id in (11, 3420)"
 			Language
 
 	}
+
+	logical-source primaryImages {
+		source query "WITH summary AS (
+    SELECT i.SourceId,
+           i.ExternalId,
+           ROW_NUMBER() OVER(PARTITION BY i.SourceId
+               ORDER BY i.OrderIndex DESC) AS rk
+    FROM Sources.Images i)
+SELECT s.*
+FROM summary s
+WHERE s.rk = 1"
+
+		referenceables
+			SourceId
+			ExternalId
+	}
+
+	logical-source images {
+		source "Source.Images"
+
+		referenceables
+			SourceId
+			Id
+			OriginalUrl
+			ThumbnailUrl
+			ExternalId
+			OrderIndex
+	}
 }

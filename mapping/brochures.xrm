@@ -54,6 +54,9 @@ map BrochureFile from wikibus.brochures {
 map BrochureImage from wikibus.brochures {
 	subject template legacyImageId with Id as BlankNode;
 
+    types
+        schema.ImageObject
+
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with Id as Literal;
 		schema.thumbnail template "brochure-image-thumb-{0}" with Id as BlankNode;
@@ -61,6 +64,9 @@ map BrochureImage from wikibus.brochures {
 
 map BrochureImageThumbnail from wikibus.brochures {
 	subject template "brochure-image-thumb-{0}" with Id as BlankNode;
+
+    types
+        schema.ImageObject
 
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image/small" with Id as Literal;
