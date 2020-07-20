@@ -51,7 +51,7 @@ map BrochureFile from wikibus.brochures {
 		schema.encodingFormat constant "application/pdf";
 }
 
-map BrochureImage from wikibus.brochures {
+map BrochureLegacyImage from wikibus.brochures {
 	subject template legacyImageId with Id as BlankNode;
 
     types

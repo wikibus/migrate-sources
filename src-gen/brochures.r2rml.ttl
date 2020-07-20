@@ -198,7 +198,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	]
 .
-<#BrochureImage>
+<#BrochureLegacyImage>
 	rr:logicalTable [ rr:sqlQuery """select
 	       Id,
 	       Pages,

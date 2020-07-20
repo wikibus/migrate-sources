@@ -71,6 +71,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:subjectMap [
 		rr:template "cloudinary-image-{Id}" ;
 		rr:class schema:ImageObject ;
+		rr:termType rr:BlankNode ;
 	];
 	
 	rr:predicateObjectMap [

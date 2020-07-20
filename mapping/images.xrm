@@ -30,7 +30,7 @@ map Image from wikibus.images {
 }
 
 map ImageThumbnail from wikibus.images {
-    subject template "cloudinary-image-{0}" with Id;
+    subject template "cloudinary-image-{0}" with Id as BlankNode;
 
     types
         schema.ImageObject
