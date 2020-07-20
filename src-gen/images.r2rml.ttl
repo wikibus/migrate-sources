@@ -4,7 +4,7 @@ PREFIX schema: <http://schema.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 <#BrochureImage>
-	rr:logicalTable [ rr:tableName "Source.Images" ];
+	rr:logicalTable [ rr:tableName "Sources.Images" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
@@ -36,7 +36,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#Image>
-	rr:logicalTable [ rr:tableName "Source.Images" ];
+	rr:logicalTable [ rr:tableName "Sources.Images" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.wikibus.org/image/{ExternalId}" ;
@@ -66,7 +66,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#ImageThumbnail>
-	rr:logicalTable [ rr:tableName "Source.Images" ];
+	rr:logicalTable [ rr:tableName "Sources.Images" ];
 	
 	rr:subjectMap [
 		rr:template "cloudinary-image-{Id}" ;

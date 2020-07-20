@@ -54,7 +54,7 @@ where SourceType = 'folder' and Id in (11, 3420)"
 	}
 
 	logical-source images {
-		source "Source.Images"
+		source "Sources.Images"
 
 		referenceables
 			SourceId
