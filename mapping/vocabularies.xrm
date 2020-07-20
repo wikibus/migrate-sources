@@ -81,5 +81,6 @@ vocabulary schema {
 		encodingFormat
 		contentSize
 		contentUrl
+		thumbnail
 }
 

@@ -95,7 +95,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:image ;
 		rr:objectMap [
-			rr:template "_:brochure-image-{Id}" ;
+			rr:template "brochure-image-{Id}" ;
 		];
 	]
 .
@@ -200,13 +200,54 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where SourceType = 'folder' and Id = 11""" ];
 	
 	rr:subjectMap [
-		rr:template "_:brochure-image-{Id}" ;
+		rr:template "brochure-image-{Id}" ;
+		rr:termType rr:BlankNode ;
 	];
 	
 	rr:predicateObjectMap [
 		rr:predicate schema:contentUrl ;
 		rr:objectMap [
 			rr:template "https://wikibus-sources.herokuapp.com/brochure/{Id}/image" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:thumbnail ;
+		rr:objectMap [
+			rr:template "brochure-image-thumb-{Id}" ;
+			rr:termType rr:BlankNode ;
+		];
+	]
+.
+<#BrochureImageThumbnail>
+	rr:logicalTable [ rr:sqlQuery """select
+	       Id,
+	       Pages,
+	       Year,
+	       Month,
+	       Day,
+	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	       FileCabinet,
+	       FileOffset,
+	       FolderCode,
+	       FolderName,
+	       [User],
+	       Updated,
+	       ContentSize,
+	       ContentUrl,
+	       IIF(rtrim(value) = '', NULL, value) as Language
+	from Sources.Source
+	CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'folder' and Id = 11""" ];
+	
+	rr:subjectMap [
+		rr:template "brochure-image-thumb-{Id}" ;
+		rr:termType rr:BlankNode ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:template "https://wikibus-sources.herokuapp.com/brochure/{Id}/image/small" ;
 		];
 	]
 .

@@ -4,7 +4,7 @@ template brochureId "https://sources.test.wikibus.org/brochure/{0}"
 template brochureLocationId "https://sources.wikibus.org/storage-location/{0}"
 template fileCabinetId "https://sources.test.wikibus.org/file-cabinet/{0}"
 template brochurePdfId "https://sources.wikibus.org/brochure/{0}/file"
-template legacyImageId "_:brochure-image-{0}"
+template legacyImageId "brochure-image-{0}"
 template languageId "http://lexvo.org/id/iso639-1/{0}"
 template userId "https://users.wikibus.org/user/{0}"
 template date "{0}-{1}-{2}"
@@ -50,8 +50,16 @@ map BrochureFile from wikibus.brochures {
 }
 
 map BrochureImage from wikibus.brochures {
-	subject template legacyImageId with Id;
+	subject template legacyImageId with Id as BlankNode;
 
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with Id;
+		schema.thumbnail template "brochure-image-thumb-{0}" with Id as BlankNode;
+}
+
+map BrochureImageThumbnail from wikibus.brochures {
+	subject template "brochure-image-thumb-{0}" with Id as BlankNode;
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image/small" with Id;
 }
