@@ -8,7 +8,7 @@ source-group wikibus {
        Year,
        Month,
        Day,
-       Notes,
+       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
        FileCabinet,
        FileOffset,
        FolderCode,
@@ -17,7 +17,7 @@ source-group wikibus {
        Updated,
        ContentSize,
        ContentUrl,
-       IIF(value = '', NULL, value) as Language
+       IIF(rtrim(value) = '', NULL, value) as Language
 from Sources.Source
 CROSS APPLY STRING_SPLIT(Languages, ';')
 where SourceType = 'folder' and Id = 11"

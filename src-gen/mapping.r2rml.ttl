@@ -15,7 +15,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Year,
 	       Month,
 	       Day,
-	       Notes,
+	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
 	       FileCabinet,
 	       FileOffset,
 	       FolderCode,
@@ -24,7 +24,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       IIF(value = '', NULL, value) as Language
+	       IIF(rtrim(value) = '', NULL, value) as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id = 11""" ];
@@ -95,7 +95,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:image ;
 		rr:objectMap [
-			rr:template "urn:brochure-image:{Id}" ;
+			rr:template "_:brochure-image-{Id}" ;
 		];
 	]
 .
@@ -106,7 +106,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Year,
 	       Month,
 	       Day,
-	       Notes,
+	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
 	       FileCabinet,
 	       FileOffset,
 	       FolderCode,
@@ -115,7 +115,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       IIF(value = '', NULL, value) as Language
+	       IIF(rtrim(value) = '', NULL, value) as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id = 11""" ];
@@ -145,7 +145,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Year,
 	       Month,
 	       Day,
-	       Notes,
+	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
 	       FileCabinet,
 	       FileOffset,
 	       FolderCode,
@@ -154,7 +154,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       IIF(value = '', NULL, value) as Language
+	       IIF(rtrim(value) = '', NULL, value) as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id = 11""" ];
@@ -185,7 +185,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Year,
 	       Month,
 	       Day,
-	       Notes,
+	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
 	       FileCabinet,
 	       FileOffset,
 	       FolderCode,
@@ -194,13 +194,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Updated,
 	       ContentSize,
 	       ContentUrl,
-	       IIF(value = '', NULL, value) as Language
+	       IIF(rtrim(value) = '', NULL, value) as Language
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
 	where SourceType = 'folder' and Id = 11""" ];
 	
 	rr:subjectMap [
-		rr:template "urn:brochure-image:{Id}" ;
+		rr:template "_:brochure-image-{Id}" ;
 	];
 	
 	rr:predicateObjectMap [
