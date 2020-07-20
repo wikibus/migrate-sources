@@ -8,6 +8,7 @@ template legacyImageId "brochure-image-{0}"
 template languageId "http://lexvo.org/id/iso639-1/{0}"
 template userId "https://users.wikibus.org/user/{0}"
 template date "{0}-{1}-{2}"
+template imageId "https://sources.wikibus.org/image/{0}"
 
 map Brochure from wikibus.brochures {
 	subject template brochureId with Id;
@@ -70,4 +71,40 @@ map BrochureImageThumbnail from wikibus.brochures {
 
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image/small" with Id as Literal;
+}
+
+map BrochureImage from wikibus.images {
+    subject template brochureId with SourceId;
+
+    properties
+        schema.image template imageId with ExternalId;
+}
+
+map BrochurePrimaryImage from wikibus.primaryImages {
+    subject template brochureId with SourceId;
+
+    properties
+        schema.primaryImageOfPage template imageId with ExternalId;
+}
+
+map Image from wikibus.images {
+    subject template imageId with ExternalId;
+
+    types
+        schema.ImageObject
+
+    properties
+        schema.contentUrl from OriginalUrl with datatype schema.URL;
+        schema.thumbnail template "cloudinary-image-{0}" with Id as BlankNode;
+        dtype.orderIndex from OrderIndex with datatype xsd.int;
+}
+
+map ImageThumbnail from wikibus.images {
+    subject template "cloudinary-image-{0}" with Id as BlankNode;
+
+    types
+        schema.ImageObject
+
+    properties
+        schema.contentUrl from ThumbnailUrl with datatype schema.URL;
 }

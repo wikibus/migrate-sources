@@ -24,7 +24,7 @@ echo "jdbc.password=$SQL_PASSWORD" >> sql.properties
 touch triples.nt
 BEFORE=$(wc -l triples.nt)
 ./ontop/ontop materialize \
-  -m ../src-gen/brochures.r2rml.ttl ../src-gen/images.r2rml.ttl \
+  -m ../src-gen/mappings.r2rml.ttl \
   -f ntriples \
   -o ./triples.nt \
   -p sql.properties
