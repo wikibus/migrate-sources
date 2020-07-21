@@ -790,3 +790,31 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	]
 .
+<#Wishlist>
+	rr:logicalTable [ rr:tableName "Sources.Wishlist" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.wikibus.org/wishlist/{User}/{SourceId}" ;
+		rr:class wbo:WishlistItem ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate wbo:source ;
+		rr:objectMap [
+			rr:template "https://sources.wikibus.org/brochure/{SourceId}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wbo:done ;
+		rr:objectMap [
+			rr:column "Done" ;
+			rr:datatype xsd:boolean ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wbo:user ;
+		rr:objectMap [
+			rr:template "https://users.wikibus.org/user/{User}" ;
+		];
+	]
+.

@@ -9,10 +9,13 @@ vocabulary wbo {
 		Brochure
 		Source
 		Book
+		WishlistItem
 
 	properties
 		name
-		department
+		^source
+		done
+		user
 }
 
 vocabulary wba {
@@ -52,6 +55,7 @@ vocabulary xsd {
 		gYear
 		gMonth
 		long
+		boolean
 }
 
 vocabulary dcterms {

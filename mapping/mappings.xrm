@@ -13,6 +13,7 @@ template languageId "http://lexvo.org/id/iso639-1/{0}"
 template userId "https://users.wikibus.org/user/{0}"
 template date "{0}-{1}-{2}"
 template imageId "https://sources.wikibus.org/image/{0}"
+template wishlistId "https://sources.wikibus.org/wishlist/{0}/{1}"
 
 map Brochure from wikibus.brochures {
 	subject template brochureId with Id;
@@ -229,4 +230,16 @@ map Magazine from wikibus.magazines {
 		dcterms.title from Name;
 		dcterms.description from SubName;
 		wba.issues template magazineIssues with Slug;
+}
+
+map Wishlist from wikibus.wishlist {
+	subject template wishlistId with User SourceId;
+
+	types
+		wbo.WishlistItem
+
+	properties
+		wbo.^source template brochureId with SourceId;
+		wbo.done from Done with datatype xsd.boolean;
+		wbo.user template userId with User;
 }

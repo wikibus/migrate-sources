@@ -173,4 +173,14 @@ where s.SourceType = 'magissue'"
 			Language
 			LegacyImage
 	}
+
+	logical-source wishlist {
+		source "Sources.Wishlist"
+
+		referenceables
+			Id
+			User
+			SourceId
+			Done
+	}
 }
