@@ -8,6 +8,7 @@ vocabulary wbo {
 	classes
 		Brochure
 		Source
+		Book
 
 	properties
 		name
@@ -34,6 +35,9 @@ vocabulary opus {
 
 vocabulary bibo {
 	prefix "bibo" "http://purl.org/ontology/bibo/"
+
+	classes
+		Book
 
 	properties
 		pages
@@ -74,6 +78,7 @@ vocabulary schema {
 	classes
 		MediaObject
 		ImageObject
+		Book
 
 	properties
 		location
@@ -86,6 +91,10 @@ vocabulary schema {
 		contentSize
 		contentUrl
 		thumbnail
+		owns
+		isbn
+		name
+		author
 
 	datatypes
 		URL

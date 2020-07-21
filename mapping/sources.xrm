@@ -21,7 +21,7 @@ source-group wikibus {
 	   IIF(Image is NULL, NULL, Id) as LegacyImage
 from Sources.Source
 CROSS APPLY STRING_SPLIT(Languages, ';')
-where SourceType = 'folder' and Id in (11, 3420)"
+where SourceType = 'folder'"
 
 		referenceables
 			Id
@@ -40,15 +40,47 @@ where SourceType = 'folder' and Id in (11, 3420)"
 			ContentUrl
 			Language
 			LegacyImage
+	}
 
+	logical-source books {
+		source query "select
+    Id,
+    Pages,
+    Year,
+    IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+    BookTitle,
+    BookISBN,
+    BookAuthor,
+    [User],
+	cast(Updated as BIGINT) as Version,
+    IIF(rtrim(value) = '', NULL, value) as Language,
+    IIF(Image is NULL, NULL, Id) as LegacyImage
+from Sources.Source
+         CROSS APPLY STRING_SPLIT(Languages, ';')
+where SourceType = 'book'"
+
+		referenceables
+			Id
+			Pages
+			Year
+			Notes
+			BookTitle
+			BookISBN
+			BookAuthor
+			FolderName
+			User
+			Language
+			LegacyImage
+			Version
 	}
 
 	logical-source primaryImages {
 		source query "
-    SELECT SourceId,
-           ExternalId
-    FROM Sources.Images
-	WHERE OrderIndex = 1"
+    SELECT i.SourceId,
+           i.ExternalId
+    FROM Sources.Images i
+	join Sources.Source b on i.SourceId = b.Id
+	WHERE i.OrderIndex = 1 and b.SourceType = 'folder'"
 
 		referenceables
 			SourceId

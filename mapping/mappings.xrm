@@ -1,10 +1,11 @@
 output r2rml
 
 template brochureId "https://sources.wikibus.org/brochure/{0}"
+template bookId "https://sources.wikibus.org/book/{0}"
 template brochureLocationId "https://sources.wikibus.org/storage-location/{0}"
 template fileCabinetId "https://sources.wikibus.org/file-cabinet/{0}"
 template brochurePdfId "https://sources.wikibus.org/brochure/{0}/file"
-template legacyImageId "brochure-image-{0}"
+template legacyImageId "legacy-image-{0}"
 template languageId "http://lexvo.org/id/iso639-1/{0}"
 template userId "https://users.wikibus.org/user/{0}"
 template date "{0}-{1}-{2}"
@@ -32,6 +33,42 @@ map Brochure from wikibus.brochures {
 		schema.image template legacyImageId with LegacyImage as BlankNode;
 		schema.primaryImageOfPage template legacyImageId with LegacyImage as BlankNode;
 		dtype.orderIndex from Version;
+}
+
+map Book from wikibus.books {
+	subject template bookId with Id;
+
+	types
+		wbo.Source
+		wbo.Book
+		schema.Book
+		bibo.Book
+
+	properties
+		bibo.pages from Pages with datatype xsd.int;
+		opus.year from Year with datatype xsd.gYear;
+		dcterms.description from Notes;
+		dcterms.title from BookTitle;
+		schema.isbn from BookISBN;
+		dcterms.language template languageId with Language;
+		schema.image template legacyImageId with LegacyImage as BlankNode;
+		schema.primaryImageOfPage template legacyImageId with LegacyImage as BlankNode;
+		schema.author template "book-{0}-author" with Id as BlankNode;
+		dtype.orderIndex from Version;
+}
+
+map BookOwners from wikibus.books {
+	subject template userId with User;
+
+	properties
+		schema.owns template bookId with Id;
+}
+
+map BookAuthors from wikibus.books {
+	subject template "book-{0}-author" with Id as BlankNode;
+
+	properties
+		schema.name from BookAuthor;
 }
 
 map BrochureLocation from wikibus.brochures {
@@ -62,7 +99,7 @@ map BrochureLegacyImage from wikibus.brochures {
 
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with Id as Literal;
-		schema.thumbnail template "brochure-image-thumb-{0}" with Id as BlankNode;
+		schema.thumbnail template "image-thumb-{0}" with Id as BlankNode;
 }
 
 map BrochureImageThumbnail from wikibus.brochures {
@@ -73,6 +110,27 @@ map BrochureImageThumbnail from wikibus.brochures {
 
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image/small" with Id as Literal;
+}
+
+map BookLegacyImage from wikibus.books {
+	subject template legacyImageId with LegacyImage as BlankNode;
+
+    types
+        schema.ImageObject
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image" with Id as Literal;
+		schema.thumbnail template "book-image-thumb-{0}" with Id as BlankNode;
+}
+
+map BookImageThumbnail from wikibus.books {
+	subject template "book-image-thumb-{0}" with Id as BlankNode;
+
+    types
+        schema.ImageObject
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image/small" with Id as Literal;
 }
 
 map BrochureImage from wikibus.images {

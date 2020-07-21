@@ -28,7 +28,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder' and Id in (11, 3420)""" ];
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.wikibus.org/brochure/{Id}" ;
@@ -108,14 +108,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:image ;
 		rr:objectMap [
-			rr:template "brochure-image-{LegacyImage}" ;
+			rr:template "legacy-image-{LegacyImage}" ;
 			rr:termType rr:BlankNode ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:primaryImageOfPage ;
 		rr:objectMap [
-			rr:template "brochure-image-{LegacyImage}" ;
+			rr:template "legacy-image-{LegacyImage}" ;
 			rr:termType rr:BlankNode ;
 		];
 	];
@@ -123,6 +123,154 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate dtype:orderIndex ;
 		rr:objectMap [
 			rr:column "Version" ;
+		];
+	]
+.
+<#Book>
+	rr:logicalTable [ rr:sqlQuery """select
+	    Id,
+	    Pages,
+	    Year,
+	    IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	    BookTitle,
+	    BookISBN,
+	    BookAuthor,
+	    [User],
+		cast(Updated as BIGINT) as Version,
+	    IIF(rtrim(value) = '', NULL, value) as Language,
+	    IIF(Image is NULL, NULL, Id) as LegacyImage
+	from Sources.Source
+	         CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'book'""" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.wikibus.org/book/{Id}" ;
+		rr:class wbo:Source ;
+		rr:class wbo:Book ;
+		rr:class schema:Book ;
+		rr:class bibo:Book ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate bibo:pages ;
+		rr:objectMap [
+			rr:column "Pages" ;
+			rr:datatype xsd:int ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate opus:year ;
+		rr:objectMap [
+			rr:column "Year" ;
+			rr:datatype xsd:gYear ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:description ;
+		rr:objectMap [
+			rr:column "Notes" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:title ;
+		rr:objectMap [
+			rr:column "BookTitle" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:isbn ;
+		rr:objectMap [
+			rr:column "BookISBN" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:language ;
+		rr:objectMap [
+			rr:template "http://lexvo.org/id/iso639-1/{Language}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:image ;
+		rr:objectMap [
+			rr:template "legacy-image-{LegacyImage}" ;
+			rr:termType rr:BlankNode ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:primaryImageOfPage ;
+		rr:objectMap [
+			rr:template "legacy-image-{LegacyImage}" ;
+			rr:termType rr:BlankNode ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:author ;
+		rr:objectMap [
+			rr:template "book-{Id}-author" ;
+			rr:termType rr:BlankNode ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dtype:orderIndex ;
+		rr:objectMap [
+			rr:column "Version" ;
+		];
+	]
+.
+<#BookOwners>
+	rr:logicalTable [ rr:sqlQuery """select
+	    Id,
+	    Pages,
+	    Year,
+	    IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	    BookTitle,
+	    BookISBN,
+	    BookAuthor,
+	    [User],
+		cast(Updated as BIGINT) as Version,
+	    IIF(rtrim(value) = '', NULL, value) as Language,
+	    IIF(Image is NULL, NULL, Id) as LegacyImage
+	from Sources.Source
+	         CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'book'""" ];
+	
+	rr:subjectMap [
+		rr:template "https://users.wikibus.org/user/{User}" ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:owns ;
+		rr:objectMap [
+			rr:template "https://sources.wikibus.org/book/{Id}" ;
+		];
+	]
+.
+<#BookAuthors>
+	rr:logicalTable [ rr:sqlQuery """select
+	    Id,
+	    Pages,
+	    Year,
+	    IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	    BookTitle,
+	    BookISBN,
+	    BookAuthor,
+	    [User],
+		cast(Updated as BIGINT) as Version,
+	    IIF(rtrim(value) = '', NULL, value) as Language,
+	    IIF(Image is NULL, NULL, Id) as LegacyImage
+	from Sources.Source
+	         CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'book'""" ];
+	
+	rr:subjectMap [
+		rr:template "book-{Id}-author" ;
+		rr:termType rr:BlankNode ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:name ;
+		rr:objectMap [
+			rr:column "BookAuthor" ;
 		];
 	]
 .
@@ -146,7 +294,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder' and Id in (11, 3420)""" ];
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.wikibus.org/storage-location/{Id}" ;
@@ -186,7 +334,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder' and Id in (11, 3420)""" ];
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.wikibus.org/brochure/{Id}/file" ;
@@ -234,10 +382,10 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder' and Id in (11, 3420)""" ];
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "brochure-image-{LegacyImage}" ;
+		rr:template "legacy-image-{LegacyImage}" ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
@@ -252,7 +400,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:thumbnail ;
 		rr:objectMap [
-			rr:template "brochure-image-thumb-{Id}" ;
+			rr:template "image-thumb-{Id}" ;
 			rr:termType rr:BlankNode ;
 		];
 	]
@@ -277,7 +425,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder' and Id in (11, 3420)""" ];
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "brochure-image-thumb-{Id}" ;
@@ -289,6 +437,75 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate schema:contentUrl ;
 		rr:objectMap [
 			rr:template "https://wikibus-sources.herokuapp.com/brochure/{Id}/image/small" ;
+			rr:termType rr:Literal ;
+		];
+	]
+.
+<#BookLegacyImage>
+	rr:logicalTable [ rr:sqlQuery """select
+	    Id,
+	    Pages,
+	    Year,
+	    IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	    BookTitle,
+	    BookISBN,
+	    BookAuthor,
+	    [User],
+		cast(Updated as BIGINT) as Version,
+	    IIF(rtrim(value) = '', NULL, value) as Language,
+	    IIF(Image is NULL, NULL, Id) as LegacyImage
+	from Sources.Source
+	         CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'book'""" ];
+	
+	rr:subjectMap [
+		rr:template "legacy-image-{LegacyImage}" ;
+		rr:class schema:ImageObject ;
+		rr:termType rr:BlankNode ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:template "https://wikibus-sources.herokuapp.com/book/{Id}/image" ;
+			rr:termType rr:Literal ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:thumbnail ;
+		rr:objectMap [
+			rr:template "book-image-thumb-{Id}" ;
+			rr:termType rr:BlankNode ;
+		];
+	]
+.
+<#BookImageThumbnail>
+	rr:logicalTable [ rr:sqlQuery """select
+	    Id,
+	    Pages,
+	    Year,
+	    IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	    BookTitle,
+	    BookISBN,
+	    BookAuthor,
+	    [User],
+		cast(Updated as BIGINT) as Version,
+	    IIF(rtrim(value) = '', NULL, value) as Language,
+	    IIF(Image is NULL, NULL, Id) as LegacyImage
+	from Sources.Source
+	         CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'book'""" ];
+	
+	rr:subjectMap [
+		rr:template "book-image-thumb-{Id}" ;
+		rr:class schema:ImageObject ;
+		rr:termType rr:BlankNode ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:template "https://wikibus-sources.herokuapp.com/book/{Id}/image/small" ;
 			rr:termType rr:Literal ;
 		];
 	]
@@ -309,10 +526,11 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 .
 <#BrochurePrimaryImage>
 	rr:logicalTable [ rr:sqlQuery """
-	    SELECT SourceId,
-	           ExternalId
-	    FROM Sources.Images
-		WHERE OrderIndex = 1""" ];
+	    SELECT i.SourceId,
+	           i.ExternalId
+	    FROM Sources.Images i
+		join Sources.Source b on i.SourceId = b.Id
+		WHERE i.OrderIndex = 1 and b.SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.wikibus.org/brochure/{SourceId}" ;
