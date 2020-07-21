@@ -1,6 +1,15 @@
 source-group wikibus {
 	type rdb
 
+	logical-source sources {
+		source "Sources.Source"
+
+		referenceables
+			Id
+			FileCabinet
+			FileOffset
+	}
+
 	logical-source brochures {
 		source query "select
        Id,
@@ -105,5 +114,63 @@ where SourceType = 'book'"
 		referenceables
 			UserId
 			DriveImportFolder
+	}
+
+	logical-source magazines {
+		source query "select *,
+    lower(replace(
+        replace(
+            cast(Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
+        ' ', '-'),
+    '&', '-')) as Slug
+from Sources.Magazine"
+
+		referenceables
+			Id
+			Name
+			SubName
+			Slug
+	}
+
+	logical-source magazineIssues {
+		source query "select
+    s.Id,
+    s.Pages,
+    s.Year,
+    s.Month,
+    s.Day,
+    IIF(rtrim(Notes) = '', NULL, s.Notes) as Notes,
+    s.FileCabinet,
+    s.FileOffset,
+    s.MagIssueNumber,
+    s.[User],
+    cast(s.Updated as BIGINT) as Version,
+    IIF(rtrim(value) = '', NULL, value) as Language,
+    IIF(s.Image is NULL, NULL, s.Id) as LegacyImage,
+    lower(replace(
+            replace(
+                    cast(m.Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
+                    ' ', '-'),
+            '&', '-')) as MagazineSlug
+from Sources.Source s
+         join Sources.Magazine m on m.Id = s.MagIssueMagazine
+         CROSS APPLY STRING_SPLIT(s.Languages, ';')
+where s.SourceType = 'magissue'"
+
+		referenceables
+			Id
+			Pages
+			Year
+			Month
+			Day
+			Notes
+			FileCabinet
+			FileOffset
+			MagazineSlug
+			MagIssueNumber
+			User
+			Version
+			Language
+			LegacyImage
 	}
 }
