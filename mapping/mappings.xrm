@@ -1,19 +1,19 @@
 output r2rml
 
-template brochureId "https://sources.wikibus.org/brochure/{0}"
-template magazineId "https://sources.wikibus.org/magazine/{0}"
-template magazineIssues "https://sources.wikibus.org/magazine/{0}/issues"
-template magazineIssueId "https://sources.wikibus.org/magazine/{0}/issue/{1}"
-template bookId "https://sources.wikibus.org/book/{0}"
-template storageLocationId "https://sources.wikibus.org/storage-location/{0}"
-template fileCabinetId "https://sources.wikibus.org/file-cabinet/{0}"
-template brochurePdfId "https://sources.wikibus.org/brochure/{0}/file"
+template brochureId "brochure/{0}"
+template magazineId "magazine/{0}"
+template magazineIssues "magazine/{0}/issues"
+template magazineIssueId "magazine/{0}/issue/{1}"
+template bookId "book/{0}"
+template storageLocationId "storage-location/{0}"
+template fileCabinetId "file-cabinet/{0}"
+template brochurePdfId "brochure/{0}/file"
 template legacyImageId "legacy-image-{0}"
 template languageId "http://lexvo.org/id/iso639-1/{0}"
 template userId "https://users.wikibus.org/user/{0}"
 template date "{0}-{1}-{2}"
-template imageId "https://sources.wikibus.org/image/{0}"
-template wishlistId "https://sources.wikibus.org/wishlist/{0}/{1}"
+template imageId "image/{0}"
+template wishlistId "wishlist/{0}/{1}"
 
 map Brochure from wikibus.brochures {
 	subject template brochureId with Id;
