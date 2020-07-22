@@ -31,10 +31,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "brochure/{Id}" ;
+		rr:template "https://sources.test.wikibus.org/brochure/{Id}" ;
 		rr:class wbo:Source ;
 		rr:class wbo:Brochure ;
-		rr:graphMap [ rr:template "brochure/{Id}" ; ]
 	];
 	
 	rr:predicateObjectMap [
@@ -67,7 +66,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate wba:storageLocation ;
 		rr:objectMap [
-			rr:template "storage-location/{Id}" ;
+			rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -103,7 +102,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:associatedMedia ;
 		rr:objectMap [
-			rr:template "brochure/{Id}/file" ;
+			rr:template "https://sources.test.wikibus.org/brochure/{Id}/file" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -145,7 +144,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where SourceType = 'book'""" ];
 	
 	rr:subjectMap [
-		rr:template "book/{Id}" ;
+		rr:template "https://sources.test.wikibus.org/book/{Id}" ;
 		rr:class wbo:Source ;
 		rr:class wbo:Book ;
 		rr:class schema:Book ;
@@ -244,7 +243,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where s.SourceType = 'magissue'""" ];
 	
 	rr:subjectMap [
-		rr:template "magazine/{MagazineSlug}/issue/{Id}" ;
+		rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ;
 		rr:class wbo:Source ;
 	];
 	
@@ -278,13 +277,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate wba:storageLocation ;
 		rr:objectMap [
-			rr:template "storage-location/{Id}" ;
+			rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:isPartOf ;
 		rr:objectMap [
-			rr:template "magazine/{MagazineSlug}" ;
+			rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -330,7 +329,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:owns ;
 		rr:objectMap [
-			rr:template "book/{Id}" ;
+			rr:template "https://sources.test.wikibus.org/book/{Id}" ;
 		];
 	]
 .
@@ -367,7 +366,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:tableName "select Id, FileCabinet, FileOffset from Sources.Source" ];
 	
 	rr:subjectMap [
-		rr:template "storage-location/{Id}" ;
+		rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ;
 	];
 	
 	rr:predicateObjectMap [
@@ -407,7 +406,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "brochure/{Id}/file" ;
+		rr:template "https://sources.test.wikibus.org/brochure/{Id}/file" ;
 		rr:class schema:MediaObject ;
 	];
 	
@@ -667,13 +666,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:tableName "Sources.Images" ];
 	
 	rr:subjectMap [
-		rr:template "brochure/{SourceId}" ;
+		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
 	];
 	
 	rr:predicateObjectMap [
 		rr:predicate schema:image ;
 		rr:objectMap [
-			rr:template "image/{ExternalId}" ;
+			rr:template "https://sources.test.wikibus.org/image/{ExternalId}" ;
 		];
 	]
 .
@@ -686,13 +685,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		WHERE i.OrderIndex = 1 and b.SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "brochure/{SourceId}" ;
+		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
 	];
 	
 	rr:predicateObjectMap [
 		rr:predicate schema:primaryImageOfPage ;
 		rr:objectMap [
-			rr:template "image/{ExternalId}" ;
+			rr:template "https://sources.test.wikibus.org/image/{ExternalId}" ;
 		];
 	]
 .
@@ -700,7 +699,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:tableName "Sources.Images" ];
 	
 	rr:subjectMap [
-		rr:template "image/{ExternalId}" ;
+		rr:template "https://sources.test.wikibus.org/image/{ExternalId}" ;
 		rr:class schema:ImageObject ;
 	];
 	
@@ -767,7 +766,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	from Sources.Magazine""" ];
 	
 	rr:subjectMap [
-		rr:template "magazine/{Slug}" ;
+		rr:template "https://sources.test.wikibus.org/magazine/{Slug}" ;
 		rr:class wbo:Source ;
 		rr:class schema:Periodical ;
 	];
@@ -787,7 +786,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate wba:issues ;
 		rr:objectMap [
-			rr:template "magazine/{Slug}/issues" ;
+			rr:template "https://sources.test.wikibus.org/magazine/{Slug}/issues" ;
 		];
 	]
 .
@@ -795,14 +794,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:tableName "Sources.Wishlist" ];
 	
 	rr:subjectMap [
-		rr:template "wishlist/{User}/{SourceId}" ;
+		rr:template "https://sources.test.wikibus.org/wishlist/{User}/{SourceId}" ;
 		rr:class wbo:WishlistItem ;
 	];
 	
 	rr:predicateObjectMap [
 		rr:predicate wbo:source ;
 		rr:objectMap [
-			rr:template "brochure/{SourceId}" ;
+			rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
 		];
 	];
 	rr:predicateObjectMap [
