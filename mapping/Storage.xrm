@@ -1,0 +1,12 @@
+output r2rml
+
+map StorageLocation from wikibus.sources {
+	subject template storageLocationId with Id;
+
+	types
+		wbo.StorageLocation
+
+	properties
+		dcterms.identifier from FileCabinet;
+		dtype.position from FileOffset with datatype xsd.int;
+}

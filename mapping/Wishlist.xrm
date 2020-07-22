@@ -1,0 +1,13 @@
+output r2rml
+
+map Wishlist from wikibus.wishlist {
+	subject template wishlistId with User SourceId;
+
+	types
+		wbo.WishlistItem
+
+	properties
+		wbo.^source template brochureId with SourceId;
+		wbo.done from Done with datatype xsd.boolean;
+		wbo.user template userId with User;
+}

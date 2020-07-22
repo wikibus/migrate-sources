@@ -1,0 +1,53 @@
+output r2rml
+
+map Magazine from wikibus.magazines {
+	subject template magazineId with Slug;
+
+	types
+		wbo.Source
+		schema.Periodical
+
+	properties
+		dcterms.title from Name;
+		dcterms.description from SubName;
+		wba.issues template magazineIssues with Slug;
+}
+
+map MagazineIssueLegacyImage from wikibus.magazineIssues {
+	subject template legacyImageId with LegacyImage as BlankNode;
+
+    types
+        schema.ImageObject
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/magazine/{0}/issue/{1}/image" with MagazineSlug Id;
+		schema.thumbnail template "image-thumb-{0}" with Id as BlankNode;
+}
+
+map MagazineIssueImageThumbnail from wikibus.magazineIssues {
+	subject template "issue-image-thumb-{0}" with Id as BlankNode;
+
+    types
+        schema.ImageObject
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/magazine/{0}/issue/{1}/image/small" with MagazineSlug Id;
+}
+
+map MagazineIssue from wikibus.magazineIssues {
+	subject template magazineIssueId with MagazineSlug Id;
+
+	types
+		wbo.Source
+
+	properties
+		bibo.pages from Pages with datatype xsd.int;
+		opus.year from Year with datatype xsd.gYear;
+		opus.month from Month with datatype xsd.gMonth;
+		dcterms.date template date with Year Month Day;
+		wba.storageLocation template storageLocationId with Id;
+		schema.isPartOf template magazineId with MagazineSlug;
+		schema.contributor template userId with User;
+		schema.issueNumber from MagIssueNumber;
+		dtype.orderIndex from Version;
+}

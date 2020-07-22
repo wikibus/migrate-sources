@@ -1,0 +1,72 @@
+output r2rml
+
+map Brochure from wikibus.brochures {
+	subject template brochureId with Id;
+
+	types
+		wbo.Source
+		wbo.Brochure
+
+	properties
+		bibo.pages from Pages with datatype xsd.int;
+		opus.year from Year with datatype xsd.gYear;
+		opus.month from Month with datatype xsd.gMonth;
+		dcterms.date template date with Year Month Day;
+		wba.storageLocation template storageLocationId with Id;
+		dcterms.language template languageId with Language;
+		dcterms.title from FolderName;
+		dcterms.description from Notes;
+		dcterms.identifier from FolderCode;
+		schema.contributor template userId with User;
+		schema.associatedMedia template brochurePdfId with Id;
+		schema.image template legacyImageId with LegacyImage as BlankNode;
+		schema.primaryImageOfPage template legacyImageId with LegacyImage as BlankNode;
+		dtype.orderIndex from Version;
+}
+
+map BrochureFile from wikibus.brochures {
+	subject template brochurePdfId with Id;
+
+	types
+		schema.MediaObject
+
+	properties
+		schema.contentSize from ContentSize with datatype xsd.long;
+		schema.encodingFormat constant "application/pdf";
+		schema.contentUrl from ContentUrl with datatype schema.URL;
+}
+
+map BrochureLegacyImage from wikibus.brochures {
+	subject template legacyImageId with LegacyImage as BlankNode;
+
+    types
+        schema.ImageObject
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with Id as Literal;
+		schema.thumbnail template "brochure-image-thumb-{0}" with Id as BlankNode;
+}
+
+map BrochureImageThumbnail from wikibus.brochures {
+	subject template "brochure-image-thumb-{0}" with Id as BlankNode;
+
+    types
+        schema.ImageObject
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image/small" with Id as Literal;
+}
+
+map BrochureImage from wikibus.images {
+    subject template brochureId with SourceId;
+
+    properties
+        schema.image template imageId with ExternalId;
+}
+
+map BrochurePrimaryImage from wikibus.primaryImages {
+    subject template brochureId with SourceId;
+
+    properties
+        schema.primaryImageOfPage template imageId with ExternalId;
+}

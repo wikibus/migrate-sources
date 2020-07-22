@@ -1,0 +1,28 @@
+PREFIX rr: <http://www.w3.org/ns/r2rml#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
+PREFIX wbo: <https://wikibus.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+<#StorageLocation>
+	rr:logicalTable [ rr:sqlQuery """select Id, FileCabinet, FileOffset from Sources.Source""" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ;
+		rr:class wbo:StorageLocation ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate dcterms:identifier ;
+		rr:objectMap [
+			rr:column "FileCabinet" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dtype:position ;
+		rr:objectMap [
+			rr:column "FileOffset" ;
+			rr:datatype xsd:int ;
+		];
+	]
+.

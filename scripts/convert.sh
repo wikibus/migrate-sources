@@ -2,7 +2,10 @@
 IFS=$'\n\t'
 set -euo pipefail
 
-curl https://cloudbox.netage.nl/f/d11919273c184226be77/?dl=1 -L -o ldf-exec.zip
+MAPPINGS="../../src-gen/*.r2rml.ttl"
+OUTFILES="../../output/*.nq"
+
+curl https://cloudbox.netage.nl/f/d4dc98e723734c89a9ab/?dl=1 -L -o ldf-exec.zip
 unzip ldf-exec.zip
 cd ldf-exec
 chmod +x linkeddatafactory.sh
@@ -12,9 +15,16 @@ echo "db.login=$SQL_USERNAME" >> r2rml.properties
 echo "db.password=$SQL_PASSWORD" >> r2rml.properties
 echo "db.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver" >> r2rml.properties
 
+mkdir ../../output/
 
-./linkeddatafactory.sh \
-  -m ../../src-gen/mappings.r2rml.ttl \
-  -o ./triples.nq
+for mapping in $MAPPINGS
+do
+  ./linkeddatafactory.sh -m $mapping -o ../../output/$(basename $mapping).nq
+done
 
-curl -X PUT -T ./triples_1.nq -H "Content-Type: application/n-quads" $SPARQL_GRAPH_STORE -L
+curl -X DELETE $SPARQL_GRAPH_STORE -L
+
+for output in $OUTFILES
+do
+  curl -X POST -T $output -H "Content-Type: application/n-quads" $SPARQL_GRAPH_STORE -L
+done

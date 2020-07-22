@@ -1,0 +1,8 @@
+output r2rml
+
+map User from wikibus.users {
+	subject template userId with UserId;
+
+	properties
+		wba.driveImportFolder from DriveImportFolder;
+}

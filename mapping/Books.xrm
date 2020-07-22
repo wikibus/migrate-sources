@@ -1,0 +1,61 @@
+output r2rml
+
+map Book from wikibus.books {
+	subject template bookId with Id;
+
+	//graphs
+	//	template bookId with Id;
+
+	types
+		wbo.Source
+		wbo.Book
+		schema.Book
+		bibo.Book
+
+	properties
+		bibo.pages from Pages with datatype xsd.int;
+		opus.year from Year with datatype xsd.gYear;
+		dcterms.description from Notes;
+		dcterms.title from BookTitle;
+		schema.isbn from BookISBN;
+		dcterms.language template languageId with Language;
+		schema.image template legacyImageId with LegacyImage as BlankNode;
+		schema.primaryImageOfPage template legacyImageId with LegacyImage as BlankNode;
+		schema.author template "book-{0}-author" with Id as BlankNode;
+		dtype.orderIndex from Version;
+}
+
+map BookOwners from wikibus.books {
+	subject template userId with User;
+
+	properties
+		schema.owns template bookId with Id;
+}
+
+map BookAuthors from wikibus.books {
+	subject template "book-{0}-author" with Id as BlankNode;
+
+	properties
+		schema.name from BookAuthor;
+}
+
+map BookLegacyImage from wikibus.books {
+	subject template legacyImageId with LegacyImage as BlankNode;
+
+    types
+        schema.ImageObject
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image" with Id as Literal;
+		schema.thumbnail template "book-image-thumb-{0}" with Id as BlankNode;
+}
+
+map BookImageThumbnail from wikibus.books {
+	subject template "book-image-thumb-{0}" with Id as BlankNode;
+
+    types
+        schema.ImageObject
+
+	properties
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image/small" with Id as Literal;
+}

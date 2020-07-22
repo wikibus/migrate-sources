@@ -1,0 +1,17 @@
+PREFIX rr: <http://www.w3.org/ns/r2rml#>
+PREFIX wba: <https://wikibus.org/api#>
+
+<#User>
+	rr:logicalTable [ rr:tableName "Sources.Users" ];
+	
+	rr:subjectMap [
+		rr:template "https://users.wikibus.org/user/{UserId}" ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate wba:driveImportFolder ;
+		rr:objectMap [
+			rr:column "DriveImportFolder" ;
+		];
+	]
+.

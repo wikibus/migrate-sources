@@ -1,0 +1,215 @@
+PREFIX rr: <http://www.w3.org/ns/r2rml#>
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
+PREFIX opus: <http://lsdis.cs.uga.edu/projects/semdis/opus#>
+PREFIX schema: <http://schema.org/>
+PREFIX wba: <https://wikibus.org/api#>
+PREFIX wbo: <https://wikibus.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+<#Magazine>
+	rr:logicalTable [ rr:sqlQuery """select *,
+	    lower(replace(
+	        replace(
+	            cast(Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
+	        ' ', '-'),
+	    '&', '-')) as Slug
+	from Sources.Magazine""" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.test.wikibus.org/magazine/{Slug}" ;
+		rr:class wbo:Source ;
+		rr:class schema:Periodical ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate dcterms:title ;
+		rr:objectMap [
+			rr:column "Name" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:description ;
+		rr:objectMap [
+			rr:column "SubName" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:issues ;
+		rr:objectMap [
+			rr:template "https://sources.test.wikibus.org/magazine/{Slug}/issues" ;
+		];
+	]
+.
+<#MagazineIssueLegacyImage>
+	rr:logicalTable [ rr:sqlQuery """select
+	    s.Id,
+	    s.Pages,
+	    s.Year,
+	    s.Month,
+	    s.Day,
+	    IIF(rtrim(Notes) = '', NULL, s.Notes) as Notes,
+	    s.FileCabinet,
+	    s.FileOffset,
+	    s.MagIssueNumber,
+	    s.[User],
+	    cast(s.Updated as BIGINT) as Version,
+	    IIF(rtrim(value) = '', NULL, value) as Language,
+	    IIF(s.Image is NULL, NULL, s.Id) as LegacyImage,
+	    lower(replace(
+	            replace(
+	                    cast(m.Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
+	                    ' ', '-'),
+	            '&', '-')) as MagazineSlug
+	from Sources.Source s
+	         join Sources.Magazine m on m.Id = s.MagIssueMagazine
+	         CROSS APPLY STRING_SPLIT(s.Languages, ';')
+	where s.SourceType = 'magissue'""" ];
+	
+	rr:subjectMap [
+		rr:template "legacy-image-{LegacyImage}" ;
+		rr:class schema:ImageObject ;
+		rr:termType rr:BlankNode ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:template "https://wikibus-sources.herokuapp.com/magazine/{MagazineSlug}/issue/{Id}/image" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:thumbnail ;
+		rr:objectMap [
+			rr:template "image-thumb-{Id}" ;
+			rr:termType rr:BlankNode ;
+		];
+	]
+.
+<#MagazineIssueImageThumbnail>
+	rr:logicalTable [ rr:sqlQuery """select
+	    s.Id,
+	    s.Pages,
+	    s.Year,
+	    s.Month,
+	    s.Day,
+	    IIF(rtrim(Notes) = '', NULL, s.Notes) as Notes,
+	    s.FileCabinet,
+	    s.FileOffset,
+	    s.MagIssueNumber,
+	    s.[User],
+	    cast(s.Updated as BIGINT) as Version,
+	    IIF(rtrim(value) = '', NULL, value) as Language,
+	    IIF(s.Image is NULL, NULL, s.Id) as LegacyImage,
+	    lower(replace(
+	            replace(
+	                    cast(m.Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
+	                    ' ', '-'),
+	            '&', '-')) as MagazineSlug
+	from Sources.Source s
+	         join Sources.Magazine m on m.Id = s.MagIssueMagazine
+	         CROSS APPLY STRING_SPLIT(s.Languages, ';')
+	where s.SourceType = 'magissue'""" ];
+	
+	rr:subjectMap [
+		rr:template "issue-image-thumb-{Id}" ;
+		rr:class schema:ImageObject ;
+		rr:termType rr:BlankNode ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:template "https://wikibus-sources.herokuapp.com/magazine/{MagazineSlug}/issue/{Id}/image/small" ;
+		];
+	]
+.
+<#MagazineIssue>
+	rr:logicalTable [ rr:sqlQuery """select
+	    s.Id,
+	    s.Pages,
+	    s.Year,
+	    s.Month,
+	    s.Day,
+	    IIF(rtrim(Notes) = '', NULL, s.Notes) as Notes,
+	    s.FileCabinet,
+	    s.FileOffset,
+	    s.MagIssueNumber,
+	    s.[User],
+	    cast(s.Updated as BIGINT) as Version,
+	    IIF(rtrim(value) = '', NULL, value) as Language,
+	    IIF(s.Image is NULL, NULL, s.Id) as LegacyImage,
+	    lower(replace(
+	            replace(
+	                    cast(m.Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
+	                    ' ', '-'),
+	            '&', '-')) as MagazineSlug
+	from Sources.Source s
+	         join Sources.Magazine m on m.Id = s.MagIssueMagazine
+	         CROSS APPLY STRING_SPLIT(s.Languages, ';')
+	where s.SourceType = 'magissue'""" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ;
+		rr:class wbo:Source ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate bibo:pages ;
+		rr:objectMap [
+			rr:column "Pages" ;
+			rr:datatype xsd:int ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate opus:year ;
+		rr:objectMap [
+			rr:column "Year" ;
+			rr:datatype xsd:gYear ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate opus:month ;
+		rr:objectMap [
+			rr:column "Month" ;
+			rr:datatype xsd:gMonth ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:date ;
+		rr:objectMap [
+			rr:template "{Year}-{Month}-{Day}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:storageLocation ;
+		rr:objectMap [
+			rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:isPartOf ;
+		rr:objectMap [
+			rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:contributor ;
+		rr:objectMap [
+			rr:template "https://users.wikibus.org/user/{User}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:issueNumber ;
+		rr:objectMap [
+			rr:column "MagIssueNumber" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dtype:orderIndex ;
+		rr:objectMap [
+			rr:column "Version" ;
+		];
+	]
+.

@@ -1,0 +1,16 @@
+output r2rml
+
+template brochureId "https://sources.test.wikibus.org/brochure/{0}"
+template magazineId "https://sources.test.wikibus.org/magazine/{0}"
+template magazineIssues "https://sources.test.wikibus.org/magazine/{0}/issues"
+template magazineIssueId "https://sources.test.wikibus.org/magazine/{0}/issue/{1}"
+template bookId "https://sources.test.wikibus.org/book/{0}"
+template storageLocationId "https://sources.test.wikibus.org/storage-location/{0}"
+template fileCabinetId "https://sources.test.wikibus.org/file-cabinet/{0}"
+template brochurePdfId "https://sources.test.wikibus.org/brochure/{0}/file"
+template legacyImageId "legacy-image-{0}"
+template languageId "http://lexvo.org/id/iso639-1/{0}"
+template userId "https://users.wikibus.org/user/{0}"
+template date "{0}-{1}-{2}"
+template imageId "https://sources.test.wikibus.org/image/{0}"
+template wishlistId "https://sources.test.wikibus.org/wishlist/{0}/{1}"

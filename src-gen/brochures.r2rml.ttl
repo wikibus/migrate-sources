@@ -1,0 +1,288 @@
+PREFIX rr: <http://www.w3.org/ns/r2rml#>
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
+PREFIX opus: <http://lsdis.cs.uga.edu/projects/semdis/opus#>
+PREFIX schema: <http://schema.org/>
+PREFIX wba: <https://wikibus.org/api#>
+PREFIX wbo: <https://wikibus.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+<#Brochure>
+	rr:logicalTable [ rr:sqlQuery """select
+	       Id,
+	       Pages,
+	       Year,
+	       Month,
+	       Day,
+	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	       FileCabinet,
+	       FileOffset,
+	       FolderCode,
+	       FolderName,
+	       [User],
+	       cast(Updated as BIGINT) as Version,
+	       ContentSize,
+	       ContentUrl,
+	       IIF(rtrim(value) = '', NULL, value) as Language,
+		   IIF(Image is NULL, NULL, Id) as LegacyImage
+	from Sources.Source
+	CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'folder'""" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.test.wikibus.org/brochure/{Id}" ;
+		rr:class wbo:Source ;
+		rr:class wbo:Brochure ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate bibo:pages ;
+		rr:objectMap [
+			rr:column "Pages" ;
+			rr:datatype xsd:int ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate opus:year ;
+		rr:objectMap [
+			rr:column "Year" ;
+			rr:datatype xsd:gYear ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate opus:month ;
+		rr:objectMap [
+			rr:column "Month" ;
+			rr:datatype xsd:gMonth ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:date ;
+		rr:objectMap [
+			rr:template "{Year}-{Month}-{Day}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:storageLocation ;
+		rr:objectMap [
+			rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:language ;
+		rr:objectMap [
+			rr:template "http://lexvo.org/id/iso639-1/{Language}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:title ;
+		rr:objectMap [
+			rr:column "FolderName" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:description ;
+		rr:objectMap [
+			rr:column "Notes" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:identifier ;
+		rr:objectMap [
+			rr:column "FolderCode" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:contributor ;
+		rr:objectMap [
+			rr:template "https://users.wikibus.org/user/{User}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:associatedMedia ;
+		rr:objectMap [
+			rr:template "https://sources.test.wikibus.org/brochure/{Id}/file" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:image ;
+		rr:objectMap [
+			rr:template "legacy-image-{LegacyImage}" ;
+			rr:termType rr:BlankNode ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:primaryImageOfPage ;
+		rr:objectMap [
+			rr:template "legacy-image-{LegacyImage}" ;
+			rr:termType rr:BlankNode ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dtype:orderIndex ;
+		rr:objectMap [
+			rr:column "Version" ;
+		];
+	]
+.
+<#BrochureFile>
+	rr:logicalTable [ rr:sqlQuery """select
+	       Id,
+	       Pages,
+	       Year,
+	       Month,
+	       Day,
+	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	       FileCabinet,
+	       FileOffset,
+	       FolderCode,
+	       FolderName,
+	       [User],
+	       cast(Updated as BIGINT) as Version,
+	       ContentSize,
+	       ContentUrl,
+	       IIF(rtrim(value) = '', NULL, value) as Language,
+		   IIF(Image is NULL, NULL, Id) as LegacyImage
+	from Sources.Source
+	CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'folder'""" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.test.wikibus.org/brochure/{Id}/file" ;
+		rr:class schema:MediaObject ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentSize ;
+		rr:objectMap [
+			rr:column "ContentSize" ;
+			rr:datatype xsd:long ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:encodingFormat ;
+		rr:objectMap [
+			rr:constant "application/pdf" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:column "ContentUrl" ;
+			rr:datatype schema:URL ;
+		];
+	]
+.
+<#BrochureLegacyImage>
+	rr:logicalTable [ rr:sqlQuery """select
+	       Id,
+	       Pages,
+	       Year,
+	       Month,
+	       Day,
+	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	       FileCabinet,
+	       FileOffset,
+	       FolderCode,
+	       FolderName,
+	       [User],
+	       cast(Updated as BIGINT) as Version,
+	       ContentSize,
+	       ContentUrl,
+	       IIF(rtrim(value) = '', NULL, value) as Language,
+		   IIF(Image is NULL, NULL, Id) as LegacyImage
+	from Sources.Source
+	CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'folder'""" ];
+	
+	rr:subjectMap [
+		rr:template "legacy-image-{LegacyImage}" ;
+		rr:class schema:ImageObject ;
+		rr:termType rr:BlankNode ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:template "https://wikibus-sources.herokuapp.com/brochure/{Id}/image" ;
+			rr:termType rr:Literal ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate schema:thumbnail ;
+		rr:objectMap [
+			rr:template "brochure-image-thumb-{Id}" ;
+			rr:termType rr:BlankNode ;
+		];
+	]
+.
+<#BrochureImageThumbnail>
+	rr:logicalTable [ rr:sqlQuery """select
+	       Id,
+	       Pages,
+	       Year,
+	       Month,
+	       Day,
+	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
+	       FileCabinet,
+	       FileOffset,
+	       FolderCode,
+	       FolderName,
+	       [User],
+	       cast(Updated as BIGINT) as Version,
+	       ContentSize,
+	       ContentUrl,
+	       IIF(rtrim(value) = '', NULL, value) as Language,
+		   IIF(Image is NULL, NULL, Id) as LegacyImage
+	from Sources.Source
+	CROSS APPLY STRING_SPLIT(Languages, ';')
+	where SourceType = 'folder'""" ];
+	
+	rr:subjectMap [
+		rr:template "brochure-image-thumb-{Id}" ;
+		rr:class schema:ImageObject ;
+		rr:termType rr:BlankNode ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:contentUrl ;
+		rr:objectMap [
+			rr:template "https://wikibus-sources.herokuapp.com/brochure/{Id}/image/small" ;
+			rr:termType rr:Literal ;
+		];
+	]
+.
+<#BrochureImage>
+	rr:logicalTable [ rr:tableName "Sources.Images" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:image ;
+		rr:objectMap [
+			rr:template "https://sources.test.wikibus.org/image/{ExternalId}" ;
+		];
+	]
+.
+<#BrochurePrimaryImage>
+	rr:logicalTable [ rr:sqlQuery """
+	    SELECT i.SourceId,
+	           i.ExternalId
+	    FROM Sources.Images i
+		join Sources.Source b on i.SourceId = b.Id
+		WHERE i.OrderIndex = 1 and b.SourceType = 'folder'""" ];
+	
+	rr:subjectMap [
+		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:primaryImageOfPage ;
+		rr:objectMap [
+			rr:template "https://sources.test.wikibus.org/image/{ExternalId}" ;
+		];
+	]
+.
