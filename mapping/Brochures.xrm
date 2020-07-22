@@ -43,18 +43,18 @@ map BrochureLegacyImage from wikibus.brochures {
         schema.ImageObject
 
 	properties
-		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with Id as Literal;
-		schema.thumbnail template "brochure-image-thumb-{0}" with Id as BlankNode;
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with LegacyImage as Literal;
+		schema.thumbnail template "brochure-image-thumb-{0}" with LegacyImage as BlankNode;
 }
 
 map BrochureImageThumbnail from wikibus.brochures {
-	subject template "brochure-image-thumb-{0}" with Id as BlankNode;
+	subject template "brochure-image-thumb-{0}" with LegacyImage as BlankNode;
 
     types
         schema.ImageObject
 
 	properties
-		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image/small" with Id as Literal;
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image/small" with LegacyImage as Literal;
 }
 
 map BrochureImage from wikibus.images {

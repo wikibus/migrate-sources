@@ -46,16 +46,16 @@ map BookLegacyImage from wikibus.books {
         schema.ImageObject
 
 	properties
-		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image" with Id as Literal;
-		schema.thumbnail template "book-image-thumb-{0}" with Id as BlankNode;
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image" with LegacyImage as Literal;
+		schema.thumbnail template "book-image-thumb-{0}" with LegacyImage as BlankNode;
 }
 
 map BookImageThumbnail from wikibus.books {
-	subject template "book-image-thumb-{0}" with Id as BlankNode;
+	subject template "book-image-thumb-{0}" with LegacyImage as BlankNode;
 
     types
         schema.ImageObject
 
 	properties
-		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image/small" with Id as Literal;
+		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image/small" with LegacyImage as Literal;
 }

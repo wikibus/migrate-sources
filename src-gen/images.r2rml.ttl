@@ -4,7 +4,7 @@ PREFIX schema: <http://schema.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 <#Image>
-	rr:logicalTable [ rr:tableName "Sources.Images" ];
+	rr:logicalTable [ rr:sqlQuery """select * from Sources.Images where SourceId=3044""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/image/{ExternalId}" ;
@@ -34,7 +34,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#ImageThumbnail>
-	rr:logicalTable [ rr:tableName "Sources.Images" ];
+	rr:logicalTable [ rr:sqlQuery """select * from Sources.Images where SourceId=3044""" ];
 	
 	rr:subjectMap [
 		rr:template "cloudinary-image-{Id}" ;

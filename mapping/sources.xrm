@@ -2,7 +2,7 @@ source-group wikibus {
 	type rdb
 
 	logical-source sources {
-		source query "select Id, FileCabinet, FileOffset from Sources.Source"
+		source query "select Id, FileCabinet, FileOffset from Sources.Source where Id=406"
 
 		referenceables
 			Id
@@ -30,7 +30,7 @@ source-group wikibus {
 	   IIF(Image is NULL, NULL, Id) as LegacyImage
 from Sources.Source
 CROSS APPLY STRING_SPLIT(Languages, ';')
-where SourceType = 'folder'"
+where SourceType = 'folder' and Id=1"
 
 		referenceables
 			Id
@@ -66,7 +66,7 @@ where SourceType = 'folder'"
     IIF(Image is NULL, NULL, Id) as LegacyImage
 from Sources.Source
          CROSS APPLY STRING_SPLIT(Languages, ';')
-where SourceType = 'book'"
+where SourceType = 'book' and Id=3213"
 
 		referenceables
 			Id
@@ -89,7 +89,7 @@ where SourceType = 'book'"
            i.ExternalId
     FROM Sources.Images i
 	join Sources.Source b on i.SourceId = b.Id
-	WHERE i.OrderIndex = 1 and b.SourceType = 'folder'"
+	WHERE i.OrderIndex = 1 and b.SourceType = 'folder' and SourceId=3044"
 
 		referenceables
 			SourceId
@@ -97,7 +97,7 @@ where SourceType = 'book'"
 	}
 
 	logical-source images {
-		source "Sources.Images"
+		source query "select * from Sources.Images where SourceId=3044"
 
 		referenceables
 			SourceId
@@ -109,7 +109,7 @@ where SourceType = 'book'"
 	}
 
 	logical-source users {
-		source "Sources.Users"
+		source query "select * from Sources.Users where UserId='google-oauth2|117957693005245427833'"
 
 		referenceables
 			UserId
@@ -123,7 +123,7 @@ where SourceType = 'book'"
             cast(Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
         ' ', '-'),
     '&', '-')) as Slug
-from Sources.Magazine"
+from Sources.Magazine where Id=1"
 
 		referenceables
 			Id
@@ -155,7 +155,7 @@ from Sources.Magazine"
 from Sources.Source s
          join Sources.Magazine m on m.Id = s.MagIssueMagazine
          CROSS APPLY STRING_SPLIT(s.Languages, ';')
-where s.SourceType = 'magissue'"
+where s.SourceType = 'magissue' and s.Id=324"
 
 		referenceables
 			Id
@@ -175,7 +175,7 @@ where s.SourceType = 'magissue'"
 	}
 
 	logical-source wishlist {
-		source "Sources.Wishlist"
+		source query "select * from Sources.Wishlist where [User]='facebook|10158948906163539    '"
 
 		referenceables
 			Id

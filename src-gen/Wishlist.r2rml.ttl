@@ -3,7 +3,7 @@ PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 <#Wishlist>
-	rr:logicalTable [ rr:tableName "Sources.Wishlist" ];
+	rr:logicalTable [ rr:sqlQuery """select * from Sources.Wishlist where [User]='facebook|10158948906163539    '""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/wishlist/{User}/{SourceId}" ;

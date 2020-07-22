@@ -15,7 +15,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	            cast(Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
 	        ' ', '-'),
 	    '&', '-')) as Slug
-	from Sources.Magazine""" ];
+	from Sources.Magazine where Id=1""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/magazine/{Slug}" ;
@@ -65,7 +65,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	from Sources.Source s
 	         join Sources.Magazine m on m.Id = s.MagIssueMagazine
 	         CROSS APPLY STRING_SPLIT(s.Languages, ';')
-	where s.SourceType = 'magissue'""" ];
+	where s.SourceType = 'magissue' and s.Id=324""" ];
 	
 	rr:subjectMap [
 		rr:template "legacy-image-{LegacyImage}" ;
@@ -110,7 +110,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	from Sources.Source s
 	         join Sources.Magazine m on m.Id = s.MagIssueMagazine
 	         CROSS APPLY STRING_SPLIT(s.Languages, ';')
-	where s.SourceType = 'magissue'""" ];
+	where s.SourceType = 'magissue' and s.Id=324""" ];
 	
 	rr:subjectMap [
 		rr:template "issue-image-thumb-{Id}" ;
@@ -148,7 +148,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	from Sources.Source s
 	         join Sources.Magazine m on m.Id = s.MagIssueMagazine
 	         CROSS APPLY STRING_SPLIT(s.Languages, ';')
-	where s.SourceType = 'magissue'""" ];
+	where s.SourceType = 'magissue' and s.Id=324""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ;

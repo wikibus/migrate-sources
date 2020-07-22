@@ -28,7 +28,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder'""" ];
+	where SourceType = 'folder' and Id=1""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{Id}" ;
@@ -146,7 +146,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder'""" ];
+	where SourceType = 'folder' and Id=1""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{Id}/file" ;
@@ -194,7 +194,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder'""" ];
+	where SourceType = 'folder' and Id=1""" ];
 	
 	rr:subjectMap [
 		rr:template "legacy-image-{LegacyImage}" ;
@@ -205,14 +205,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:contentUrl ;
 		rr:objectMap [
-			rr:template "https://wikibus-sources.herokuapp.com/brochure/{Id}/image" ;
+			rr:template "https://wikibus-sources.herokuapp.com/brochure/{LegacyImage}/image" ;
 			rr:termType rr:Literal ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:thumbnail ;
 		rr:objectMap [
-			rr:template "brochure-image-thumb-{Id}" ;
+			rr:template "brochure-image-thumb-{LegacyImage}" ;
 			rr:termType rr:BlankNode ;
 		];
 	]
@@ -237,10 +237,10 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder'""" ];
+	where SourceType = 'folder' and Id=1""" ];
 	
 	rr:subjectMap [
-		rr:template "brochure-image-thumb-{Id}" ;
+		rr:template "brochure-image-thumb-{LegacyImage}" ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
@@ -248,13 +248,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:contentUrl ;
 		rr:objectMap [
-			rr:template "https://wikibus-sources.herokuapp.com/brochure/{Id}/image/small" ;
+			rr:template "https://wikibus-sources.herokuapp.com/brochure/{LegacyImage}/image/small" ;
 			rr:termType rr:Literal ;
 		];
 	]
 .
 <#BrochureImage>
-	rr:logicalTable [ rr:tableName "Sources.Images" ];
+	rr:logicalTable [ rr:sqlQuery """select * from Sources.Images where SourceId=3044""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
@@ -273,7 +273,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	           i.ExternalId
 	    FROM Sources.Images i
 		join Sources.Source b on i.SourceId = b.Id
-		WHERE i.OrderIndex = 1 and b.SourceType = 'folder'""" ];
+		WHERE i.OrderIndex = 1 and b.SourceType = 'folder' and SourceId=3044""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
