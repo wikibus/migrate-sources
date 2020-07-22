@@ -15,14 +15,15 @@ echo "db.login=$SQL_USERNAME" >> r2rml.properties
 echo "db.password=$SQL_PASSWORD" >> r2rml.properties
 echo "db.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver" >> r2rml.properties
 
-mkdir ../../output/
+mkdir -p ../../output/
 
 for mapping in $MAPPINGS
 do
+  echo "Converting $mapping"
   ./linkeddatafactory.sh -m $mapping -o ../../output/$(basename $mapping).nq
 done
 
-curl -X DELETE $SPARQL_GRAPH_STORE -L
+#curl -X PUT -d {} $SPARQL_GRAPH_STORE -L
 
 for output in $OUTFILES
 do
