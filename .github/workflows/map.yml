@@ -7,17 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Cache ontop
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-mix-deps
+      - uses: actions/setup-java@v1
         with:
-          path: ./ontop-scripts/ontop
-          key: ${{ runner.os }}-deps-${{ env.cache-name }}-${{ hashFiles('./ontop-scripts/convert.sh') }}
-          restore-keys: |
-            ${{ runner.os }}-deps-${{ env.cache-name }}-
-            ${{ runner.os }}-deps-
-            ${{ runner.os }}-
+          java-version: '13'
       - run: make
         env:
           SQL_URL: ${{ secrets.SQL_URL }}
@@ -27,4 +19,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: triples.nt
-          path: ontop-scripts/triples.nt
+          path: scripts/triples.nt

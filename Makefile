@@ -3,4 +3,4 @@
 all: convert
 
 convert:
-	cd ontop-scripts && ./convert.sh
+	cd scripts && ./convert.sh

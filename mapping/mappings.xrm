@@ -42,6 +42,9 @@ map Brochure from wikibus.brochures {
 map Book from wikibus.books {
 	subject template bookId with Id;
 
+	graphs
+		template bookId with Id;
+
 	types
 		wbo.Source
 		wbo.Book

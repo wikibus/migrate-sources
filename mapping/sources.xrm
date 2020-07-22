@@ -2,7 +2,7 @@ source-group wikibus {
 	type rdb
 
 	logical-source sources {
-		source "Sources.Source"
+		source "select Id, FileCabinet, FileOffset from Sources.Source"
 
 		referenceables
 			Id
