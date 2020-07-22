@@ -1,5 +1,3 @@
-output r2rml
-
 template brochureId "https://sources.test.wikibus.org/brochure/{0}"
 template magazineId "https://sources.test.wikibus.org/magazine/{0}"
 template magazineIssues "https://sources.test.wikibus.org/magazine/{0}/issues"

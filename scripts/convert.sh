@@ -23,10 +23,14 @@ do
   ./linkeddatafactory.sh -m $mapping -o ../../output/$(basename $mapping).nq
 done
 
-#curl -X PUT -d {} $SPARQL_GRAPH_STORE -L
+curl https://data.wikibus.org/sparql \
+-XPOST \
+-u $SPARQL_CREDENTIALS \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+--data 'update=CLEAR%20%20default'
 
 for output in $OUTFILES
 do
   echo "Uploading $output"
-  curl -X POST -T $output -H "Content-Type: application/n-quads" $SPARQL_GRAPH_STORE -L
+  curl -X POST -T $output -H "Content-Type: text/turtle" -u $SPARQL_CREDENTIALS https://data.wikibus.org/data?default -L
 done
