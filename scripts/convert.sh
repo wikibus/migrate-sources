@@ -27,5 +27,6 @@ done
 
 for output in $OUTFILES
 do
+  echo "Uploading $output"
   curl -X POST -T $output -H "Content-Type: application/n-quads" $SPARQL_GRAPH_STORE -L
 done
