@@ -7,16 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '13'
-      - run: make
-        env:
-          SQL_URL: ${{ secrets.SQL_URL }}
-          SQL_USERNAME: ${{ secrets.SQL_USERNAME }}
-          SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
-          SPARQL_CREDENTIALS: ${{ secrets.SPARQL_CREDENTIALS }}          
+      - uses: actions/setup-dotnet
+      - run: dotnet tool install -g r2rml4net-cli
+      - run: r2rml4net rml -m "${{ secrets.SQL_CONNECTION }}" -o triples.nq -m ./src-gen
       - uses: actions/upload-artifact@v2
         with:
           name: result
-          path: output/
+          path: triples.nq
