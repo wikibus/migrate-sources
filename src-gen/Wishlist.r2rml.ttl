@@ -6,15 +6,15 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:sqlQuery """select Id, rtrim([User]) as [User], SourceId, Done from Sources.Wishlist""" ];
 	
 	rr:subjectMap [
-		rr:template "https://sources.test.wikibus.org/wishlist/{User}/{SourceId}" ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/wishlist/{User}/{SourceId}" ] ;
+		rr:template "wishlist/{User}/{SourceId}" ;
+		rr:graphMap [ rr:template "wishlist/{User}/{SourceId}" ] ;
 		rr:class wbo:WishlistItem ;
 	];
 	
 	rr:predicateObjectMap [
 		rr:predicate wbo:source ;
 		rr:objectMap [
-			rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
+			rr:template "brochure/{SourceId}" ;
 		];
 	];
 	rr:predicateObjectMap [

@@ -8,8 +8,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:logicalTable [ rr:sqlQuery """select Id, FileCabinet, FileOffset from Sources.Source""" ];
 	
 	rr:subjectMap [
-		rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ] ;
+		rr:template "storage-location/{Id}" ;
+		rr:graphMap [ rr:template "storage-location/{Id}" ] ;
 		rr:class wbo:StorageLocation ;
 	];
 	

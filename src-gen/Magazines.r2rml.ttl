@@ -18,8 +18,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	from Sources.Magazine""" ];
 	
 	rr:subjectMap [
-		rr:template "https://sources.test.wikibus.org/magazine/{Slug}" ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/magazine/{Slug}" ; ] ;
+		rr:template "magazine/{Slug}" ;
+		rr:graphMap [ rr:template "magazine/{Slug}" ; ] ;
 		rr:class wbo:Source ;
 		rr:class schema:Periodical ;
 	];
@@ -39,7 +39,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate wba:issues ;
 		rr:objectMap [
-			rr:template "https://sources.test.wikibus.org/magazine/{Slug}/issues" ;
+			rr:template "magazine/{Slug}/issues" ;
 		];
 	]
 .
@@ -70,7 +70,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "legacy-image-{LegacyImage}" ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ; ] ;
+		rr:graphMap [ rr:template "magazine/{MagazineSlug}/issue/{Id}" ; ] ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
@@ -116,7 +116,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "issue-image-thumb-{Id}" ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ; ] ;
+		rr:graphMap [ rr:template "magazine/{MagazineSlug}/issue/{Id}" ; ] ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
@@ -154,8 +154,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where s.SourceType = 'magissue'""" ];
 	
 	rr:subjectMap [
-		rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ;
-		rr:graphMap [ rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ; ] ;
+		rr:template "magazine/{MagazineSlug}/issue/{Id}" ;
+		rr:graphMap [ rr:template "magazine/{MagazineSlug}/issue/{Id}" ; ] ;
 		rr:class wbo:Source ;
 	];
 	
@@ -189,13 +189,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate wba:storageLocation ;
 		rr:objectMap [
-			rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ;
+			rr:template "storage-location/{Id}" ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:isPartOf ;
 		rr:objectMap [
-			rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}" ;
+			rr:template "magazine/{MagazineSlug}" ;
 		];
 	];
 	rr:predicateObjectMap [

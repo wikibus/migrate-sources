@@ -11,7 +11,7 @@ jobs:
         with:
           dotnet-version: '2.2'
       - run: dotnet tool install -g r2rml4net-cli
-      - run: r2rml4net rml -c "${{ secrets.SQL_CONNECTION }}" -o triples.nq -m ./src-gen
+      - run: r2rml4net rml -c "${{ secrets.SQL_CONNECTION }}" -o triples.nq -m ./src-gen -b https://sources.test.wikibus.org/
       - uses: actions/upload-artifact@v2
         with:
           name: result
