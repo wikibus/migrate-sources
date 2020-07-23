@@ -6,6 +6,7 @@ PREFIX wba: <https://wikibus.org/api#>
 	
 	rr:subjectMap [
 		rr:template "https://users.wikibus.org/user/{UserId}" ;
+		rr:graphMap [ rr:template "https://users.wikibus.org/user/{UserId}" ] ;
 	];
 	
 	rr:predicateObjectMap [

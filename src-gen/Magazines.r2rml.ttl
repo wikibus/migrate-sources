@@ -19,6 +19,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/magazine/{Slug}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/magazine/{Slug}" ; ] ;
 		rr:class wbo:Source ;
 		rr:class schema:Periodical ;
 	];
@@ -69,6 +70,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "legacy-image-{LegacyImage}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ; ] ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
@@ -114,6 +116,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "issue-image-thumb-{Id}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ; ] ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
@@ -152,6 +155,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ; ] ;
 		rr:class wbo:Source ;
 	];
 	

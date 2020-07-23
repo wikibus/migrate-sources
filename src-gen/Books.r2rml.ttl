@@ -26,6 +26,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/book/{Id}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/book/{Id}" ; ] ;
 		rr:class wbo:Source ;
 		rr:class wbo:Book ;
 		rr:class schema:Book ;
@@ -117,6 +118,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://users.wikibus.org/user/{User}" ;
+		rr:graphMap [ rr:template "https://users.wikibus.org/user/{User}" ; ] ;
 	];
 	
 	rr:predicateObjectMap [
@@ -146,6 +148,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:subjectMap [
 		rr:template "book-{Id}-author" ;
 		rr:termType rr:BlankNode ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/book/{Id}" ; ] ;
 	];
 	
 	rr:predicateObjectMap [
@@ -176,6 +179,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:template "legacy-image-{LegacyImage}" ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/book/{Id}" ; ] ;
 	];
 	
 	rr:predicateObjectMap [
@@ -214,6 +218,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:template "book-image-thumb-{LegacyImage}" ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/book/{Id}" ; ] ;
 	];
 	
 	rr:predicateObjectMap [

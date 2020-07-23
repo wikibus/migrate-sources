@@ -32,6 +32,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{Id}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{Id}" ; ] ;
 		rr:class wbo:Source ;
 		rr:class wbo:Brochure ;
 	];
@@ -150,6 +151,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{Id}/file" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{Id}" ; ] ;
 		rr:class schema:MediaObject ;
 	];
 	
@@ -198,6 +200,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "legacy-image-{LegacyImage}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{Id}" ; ] ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
@@ -241,6 +244,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "brochure-image-thumb-{LegacyImage}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{Id}" ; ] ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];
@@ -258,6 +262,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ; ] 
 	];
 	
 	rr:predicateObjectMap [
@@ -277,6 +282,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
+		rr:graphMap [ rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ; ] ;
 	];
 	
 	rr:predicateObjectMap [
