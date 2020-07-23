@@ -5,7 +5,7 @@ PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 <#StorageLocation>
-	rr:logicalTable [ rr:sqlQuery """select Id, FileCabinet, FileOffset from Sources.Source where Id=406""" ];
+	rr:logicalTable [ rr:sqlQuery """select Id, FileCabinet, FileOffset from Sources.Source""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/storage-location/{Id}" ;

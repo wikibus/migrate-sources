@@ -2,7 +2,7 @@ source-group wikibus {
 	type rdb
 
 	logical-source sources {
-		source query "select Id, FileCabinet, FileOffset from Sources.Source where Id=406"
+		source query "select Id, FileCabinet, FileOffset from Sources.Source"
 
 		referenceables
 			Id
@@ -22,7 +22,7 @@ source-group wikibus {
        FileOffset,
        FolderCode,
        FolderName,
-       [User],
+       rtrim([User]) as [User],
        cast(Updated as BIGINT) as Version,
        ContentSize,
        ContentUrl,
@@ -30,7 +30,7 @@ source-group wikibus {
 	   IIF(Image is NULL, NULL, Id) as LegacyImage
 from Sources.Source
 CROSS APPLY STRING_SPLIT(Languages, ';')
-where SourceType = 'folder' and Id=1"
+where SourceType = 'folder'"
 
 		referenceables
 			Id
@@ -60,13 +60,13 @@ where SourceType = 'folder' and Id=1"
     BookTitle,
     BookISBN,
     BookAuthor,
-    [User],
+    rtrim([User]) as [User],
 	cast(Updated as BIGINT) as Version,
     IIF(rtrim(value) = '', NULL, value) as Language,
     IIF(Image is NULL, NULL, Id) as LegacyImage
 from Sources.Source
          CROSS APPLY STRING_SPLIT(Languages, ';')
-where SourceType = 'book' and Id=3213"
+where SourceType = 'book'"
 
 		referenceables
 			Id
@@ -89,7 +89,7 @@ where SourceType = 'book' and Id=3213"
            i.ExternalId
     FROM Sources.Images i
 	join Sources.Source b on i.SourceId = b.Id
-	WHERE i.OrderIndex = 1 and b.SourceType = 'folder' and SourceId=3044"
+	WHERE i.OrderIndex = 1 and b.SourceType = 'folder'"
 
 		referenceables
 			SourceId
@@ -97,7 +97,7 @@ where SourceType = 'book' and Id=3213"
 	}
 
 	logical-source images {
-		source query "select * from Sources.Images where SourceId=3044"
+		source "[Sources].[Images]"
 
 		referenceables
 			SourceId
@@ -109,7 +109,7 @@ where SourceType = 'book' and Id=3213"
 	}
 
 	logical-source users {
-		source query "select * from Sources.Users where UserId='google-oauth2|117957693005245427833'"
+		source query "select rtrim([UserId]) as [UserId], DriveImportFolder from [Sources].[Users]"
 
 		referenceables
 			UserId
@@ -123,7 +123,7 @@ where SourceType = 'book' and Id=3213"
             cast(Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
         ' ', '-'),
     '&', '-')) as Slug
-from Sources.Magazine where Id=1"
+from Sources.Magazine"
 
 		referenceables
 			Id
@@ -143,7 +143,7 @@ from Sources.Magazine where Id=1"
     s.FileCabinet,
     s.FileOffset,
     s.MagIssueNumber,
-    s.[User],
+    rtrim(s.[User]) as [User],
     cast(s.Updated as BIGINT) as Version,
     IIF(rtrim(value) = '', NULL, value) as Language,
     IIF(s.Image is NULL, NULL, s.Id) as LegacyImage,
@@ -155,7 +155,7 @@ from Sources.Magazine where Id=1"
 from Sources.Source s
          join Sources.Magazine m on m.Id = s.MagIssueMagazine
          CROSS APPLY STRING_SPLIT(s.Languages, ';')
-where s.SourceType = 'magissue' and s.Id=324"
+where s.SourceType = 'magissue'"
 
 		referenceables
 			Id
@@ -175,7 +175,7 @@ where s.SourceType = 'magissue' and s.Id=324"
 	}
 
 	logical-source wishlist {
-		source query "select * from Sources.Wishlist where [User]='facebook|10158948906163539    '"
+		source query "select Id, rtrim([User]) as [User], SourceId, Done from Sources.Wishlist"
 
 		referenceables
 			Id

@@ -2,7 +2,7 @@ PREFIX rr: <http://www.w3.org/ns/r2rml#>
 PREFIX wba: <https://wikibus.org/api#>
 
 <#User>
-	rr:logicalTable [ rr:sqlQuery """select * from Sources.Users where UserId='google-oauth2|117957693005245427833'""" ];
+	rr:logicalTable [ rr:sqlQuery """select rtrim([UserId]) as [UserId], DriveImportFolder from [Sources].[Users]""" ];
 	
 	rr:subjectMap [
 		rr:template "https://users.wikibus.org/user/{UserId}" ;

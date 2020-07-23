@@ -16,13 +16,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookTitle,
 	    BookISBN,
 	    BookAuthor,
-	    [User],
+	    rtrim([User]) as [User],
 		cast(Updated as BIGINT) as Version,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	         CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'book' and Id=3213""" ];
+	where SourceType = 'book'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/book/{Id}" ;
@@ -107,13 +107,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookTitle,
 	    BookISBN,
 	    BookAuthor,
-	    [User],
+	    rtrim([User]) as [User],
 		cast(Updated as BIGINT) as Version,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	         CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'book' and Id=3213""" ];
+	where SourceType = 'book'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://users.wikibus.org/user/{User}" ;
@@ -135,13 +135,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookTitle,
 	    BookISBN,
 	    BookAuthor,
-	    [User],
+	    rtrim([User]) as [User],
 		cast(Updated as BIGINT) as Version,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	         CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'book' and Id=3213""" ];
+	where SourceType = 'book'""" ];
 	
 	rr:subjectMap [
 		rr:template "book-{Id}-author" ;
@@ -164,13 +164,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookTitle,
 	    BookISBN,
 	    BookAuthor,
-	    [User],
+	    rtrim([User]) as [User],
 		cast(Updated as BIGINT) as Version,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	         CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'book' and Id=3213""" ];
+	where SourceType = 'book'""" ];
 	
 	rr:subjectMap [
 		rr:template "legacy-image-{LegacyImage}" ;
@@ -202,13 +202,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookTitle,
 	    BookISBN,
 	    BookAuthor,
-	    [User],
+	    rtrim([User]) as [User],
 		cast(Updated as BIGINT) as Version,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	         CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'book' and Id=3213""" ];
+	where SourceType = 'book'""" ];
 	
 	rr:subjectMap [
 		rr:template "book-image-thumb-{LegacyImage}" ;

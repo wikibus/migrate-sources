@@ -20,7 +20,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FileOffset,
 	       FolderCode,
 	       FolderName,
-	       [User],
+	       rtrim([User]) as [User],
 	       cast(Updated as BIGINT) as Version,
 	       ContentSize,
 	       ContentUrl,
@@ -28,7 +28,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder' and Id=1""" ];
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{Id}" ;
@@ -138,7 +138,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FileOffset,
 	       FolderCode,
 	       FolderName,
-	       [User],
+	       rtrim([User]) as [User],
 	       cast(Updated as BIGINT) as Version,
 	       ContentSize,
 	       ContentUrl,
@@ -146,7 +146,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder' and Id=1""" ];
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{Id}/file" ;
@@ -186,7 +186,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FileOffset,
 	       FolderCode,
 	       FolderName,
-	       [User],
+	       rtrim([User]) as [User],
 	       cast(Updated as BIGINT) as Version,
 	       ContentSize,
 	       ContentUrl,
@@ -194,7 +194,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder' and Id=1""" ];
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "legacy-image-{LegacyImage}" ;
@@ -229,7 +229,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FileOffset,
 	       FolderCode,
 	       FolderName,
-	       [User],
+	       rtrim([User]) as [User],
 	       cast(Updated as BIGINT) as Version,
 	       ContentSize,
 	       ContentUrl,
@@ -237,7 +237,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
 	CROSS APPLY STRING_SPLIT(Languages, ';')
-	where SourceType = 'folder' and Id=1""" ];
+	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "brochure-image-thumb-{LegacyImage}" ;
@@ -254,7 +254,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	]
 .
 <#BrochureImage>
-	rr:logicalTable [ rr:sqlQuery """select * from Sources.Images where SourceId=3044""" ];
+	rr:logicalTable [ rr:tableName "[Sources].[Images]" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;
@@ -273,7 +273,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	           i.ExternalId
 	    FROM Sources.Images i
 		join Sources.Source b on i.SourceId = b.Id
-		WHERE i.OrderIndex = 1 and b.SourceType = 'folder' and SourceId=3044""" ];
+		WHERE i.OrderIndex = 1 and b.SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/brochure/{SourceId}" ;

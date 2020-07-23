@@ -15,7 +15,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	            cast(Name as varchar(max)) collate SQL_Latin1_General_Cp1251_CS_AS,
 	        ' ', '-'),
 	    '&', '-')) as Slug
-	from Sources.Magazine where Id=1""" ];
+	from Sources.Magazine""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/magazine/{Slug}" ;
@@ -53,7 +53,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    s.FileCabinet,
 	    s.FileOffset,
 	    s.MagIssueNumber,
-	    s.[User],
+	    rtrim(s.[User]) as [User],
 	    cast(s.Updated as BIGINT) as Version,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(s.Image is NULL, NULL, s.Id) as LegacyImage,
@@ -65,7 +65,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	from Sources.Source s
 	         join Sources.Magazine m on m.Id = s.MagIssueMagazine
 	         CROSS APPLY STRING_SPLIT(s.Languages, ';')
-	where s.SourceType = 'magissue' and s.Id=324""" ];
+	where s.SourceType = 'magissue'""" ];
 	
 	rr:subjectMap [
 		rr:template "legacy-image-{LegacyImage}" ;
@@ -98,7 +98,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    s.FileCabinet,
 	    s.FileOffset,
 	    s.MagIssueNumber,
-	    s.[User],
+	    rtrim(s.[User]) as [User],
 	    cast(s.Updated as BIGINT) as Version,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(s.Image is NULL, NULL, s.Id) as LegacyImage,
@@ -110,7 +110,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	from Sources.Source s
 	         join Sources.Magazine m on m.Id = s.MagIssueMagazine
 	         CROSS APPLY STRING_SPLIT(s.Languages, ';')
-	where s.SourceType = 'magissue' and s.Id=324""" ];
+	where s.SourceType = 'magissue'""" ];
 	
 	rr:subjectMap [
 		rr:template "issue-image-thumb-{Id}" ;
@@ -136,7 +136,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    s.FileCabinet,
 	    s.FileOffset,
 	    s.MagIssueNumber,
-	    s.[User],
+	    rtrim(s.[User]) as [User],
 	    cast(s.Updated as BIGINT) as Version,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(s.Image is NULL, NULL, s.Id) as LegacyImage,
@@ -148,7 +148,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	from Sources.Source s
 	         join Sources.Magazine m on m.Id = s.MagIssueMagazine
 	         CROSS APPLY STRING_SPLIT(s.Languages, ';')
-	where s.SourceType = 'magissue' and s.Id=324""" ];
+	where s.SourceType = 'magissue'""" ];
 	
 	rr:subjectMap [
 		rr:template "https://sources.test.wikibus.org/magazine/{MagazineSlug}/issue/{Id}" ;
