@@ -37,7 +37,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate bibo:pages ;
 		rr:objectMap [
 			rr:column "Pages" ;
-			rr:datatype xsd:int ;
 		];
 	];
 	rr:predicateObjectMap [
