@@ -41,7 +41,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate bibo:pages ;
 		rr:objectMap [
 			rr:column "Pages" ;
-			rr:datatype xsd:int ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -109,15 +108,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:image ;
 		rr:objectMap [
-			rr:template "legacy-image-{LegacyImage}" ;
-			rr:termType rr:BlankNode ;
+			rr:template "brochure/{LegacyImage}/image" ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:primaryImageOfPage ;
 		rr:objectMap [
-			rr:template "legacy-image-{LegacyImage}" ;
-			rr:termType rr:BlankNode ;
+			rr:template "brochure/{LegacyImage}/image" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -199,10 +196,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "legacy-image-{LegacyImage}" ;
+		rr:template "brochure/{LegacyImage}/image" ;
 		rr:graphMap [ rr:template "brochure/{Id}" ; ] ;
 		rr:class schema:ImageObject ;
-		rr:termType rr:BlankNode ;
 	];
 	
 	rr:predicateObjectMap [
@@ -215,7 +211,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:thumbnail ;
 		rr:objectMap [
-			rr:template "brochure-image-thumb-{LegacyImage}" ;
+			rr:template "brochure/{LegacyImage}/image/small" ;
 			rr:termType rr:BlankNode ;
 		];
 	]
@@ -243,10 +239,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where SourceType = 'folder'""" ];
 	
 	rr:subjectMap [
-		rr:template "brochure-image-thumb-{LegacyImage}" ;
+		rr:template "brochure/{LegacyImage}/image/small" ;
 		rr:graphMap [ rr:template "brochure/{Id}" ; ] ;
 		rr:class schema:ImageObject ;
-		rr:termType rr:BlankNode ;
 	];
 	
 	rr:predicateObjectMap [

@@ -8,7 +8,7 @@ map Brochure from wikibus.brochures {
 		wbo.Brochure
 
 	properties
-		bibo.pages from Pages with datatype xsd.int;
+		bibo.pages from Pages;
 		opus.year from Year with datatype xsd.gYear;
 		opus.month from Month with datatype xsd.gMonth;
 		dcterms.date template date with Year Month Day;
@@ -19,8 +19,8 @@ map Brochure from wikibus.brochures {
 		dcterms.identifier from FolderCode;
 		schema.contributor template userId with User;
 		schema.associatedMedia template brochurePdfId with Id;
-		schema.image template legacyImageId with LegacyImage as BlankNode;
-		schema.primaryImageOfPage template legacyImageId with LegacyImage as BlankNode;
+		schema.image template legacyImageId with LegacyImage;
+		schema.primaryImageOfPage template legacyImageId with LegacyImage;
 		dtype.orderIndex from Version;
 }
 
@@ -37,7 +37,7 @@ map BrochureFile from wikibus.brochures {
 }
 
 map BrochureLegacyImage from wikibus.brochures {
-	subject template legacyImageId with LegacyImage as BlankNode;
+	subject template legacyImageId with LegacyImage;
 
     types
         schema.ImageObject

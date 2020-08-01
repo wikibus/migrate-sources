@@ -14,7 +14,7 @@ map Magazine from wikibus.magazines {
 }
 
 map MagazineIssueLegacyImage from wikibus.magazineIssues {
-	subject template legacyImageId with LegacyImage as BlankNode;
+	subject template legacyImageId with LegacyImage;
 
     types
         schema.ImageObject

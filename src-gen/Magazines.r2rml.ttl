@@ -69,10 +69,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where s.SourceType = 'magissue'""" ];
 	
 	rr:subjectMap [
-		rr:template "legacy-image-{LegacyImage}" ;
+		rr:template "magazine/{MagazineSlug}/issue/{LegacyImage}/image" ;
 		rr:graphMap [ rr:template "magazine/{MagazineSlug}/issue/{Id}" ; ] ;
 		rr:class schema:ImageObject ;
-		rr:termType rr:BlankNode ;
 	];
 	
 	rr:predicateObjectMap [
@@ -84,7 +83,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:thumbnail ;
 		rr:objectMap [
-			rr:template "image-thumb-{Id}" ;
+			rr:template "magazine/{MagazineSlug}/issue/{LegacyImage}/image/small" ;
 			rr:termType rr:BlankNode ;
 		];
 	]
@@ -115,8 +114,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where s.SourceType = 'magissue'""" ];
 	
 	rr:subjectMap [
-		rr:template "issue-image-thumb-{Id}" ;
-		rr:graphMap [ rr:template "magazine/{MagazineSlug}/issue/{Id}" ; ] ;
+		rr:template "magazine/{MagazineSlug}/issue/{LegacyImage}/image/small" ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 	];

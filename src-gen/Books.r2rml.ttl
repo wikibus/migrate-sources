@@ -73,15 +73,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:image ;
 		rr:objectMap [
-			rr:template "legacy-image-{LegacyImage}" ;
-			rr:termType rr:BlankNode ;
+			rr:template "image/{LegacyImage}" ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:primaryImageOfPage ;
 		rr:objectMap [
-			rr:template "legacy-image-{LegacyImage}" ;
-			rr:termType rr:BlankNode ;
+			rr:template "image/{LegacyImage}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -175,9 +173,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where SourceType = 'book'""" ];
 	
 	rr:subjectMap [
-		rr:template "legacy-image-{LegacyImage}" ;
+		rr:template "book/{LegacyImage}/image" ;
 		rr:class schema:ImageObject ;
-		rr:termType rr:BlankNode ;
 		rr:graphMap [ rr:template "book/{Id}" ; ] ;
 	];
 	
@@ -191,8 +188,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:thumbnail ;
 		rr:objectMap [
-			rr:template "book-image-thumb-{LegacyImage}" ;
-			rr:termType rr:BlankNode ;
+			rr:template "book/{LegacyImage}/image/small" ;
 		];
 	]
 .
@@ -214,7 +210,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	where SourceType = 'book'""" ];
 	
 	rr:subjectMap [
-		rr:template "book-image-thumb-{LegacyImage}" ;
+		rr:template "book/{LegacyImage}/image/small" ;
 		rr:class schema:ImageObject ;
 		rr:termType rr:BlankNode ;
 		rr:graphMap [ rr:template "book/{Id}" ; ] ;

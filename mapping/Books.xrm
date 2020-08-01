@@ -13,14 +13,14 @@ map Book from wikibus.books {
 		bibo.Book
 
 	properties
-		bibo.pages from Pages with datatype xsd.int;
+		bibo.pages from Pages;
 		opus.year from Year with datatype xsd.gYear;
 		dcterms.description from Notes;
 		dcterms.title from BookTitle;
 		schema.isbn from BookISBN;
 		dcterms.language template languageId with Language;
-		schema.image template legacyImageId with LegacyImage as BlankNode;
-		schema.primaryImageOfPage template legacyImageId with LegacyImage as BlankNode;
+		schema.image template legacyImageId with LegacyImage;
+		schema.primaryImageOfPage template legacyImageId with LegacyImage;
 		schema.author template "book-{0}-author" with Id as BlankNode;
 		dtype.orderIndex from Version;
 }
@@ -40,14 +40,14 @@ map BookAuthors from wikibus.books {
 }
 
 map BookLegacyImage from wikibus.books {
-	subject template legacyImageId with LegacyImage as BlankNode;
+	subject template legacyImageId with LegacyImage;
 
     types
         schema.ImageObject
 
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image" with LegacyImage as Literal;
-		schema.thumbnail template "book-image-thumb-{0}" with LegacyImage as BlankNode;
+		schema.thumbnail template "book-image-thumb-{0}" with LegacyImage;
 }
 
 map BookImageThumbnail from wikibus.books {
