@@ -6,6 +6,7 @@ map Brochure from wikibus.brochures {
 	types
 		wbo.Source
 		wbo.Brochure
+		hydra.Resource
 
 	properties
 		bibo.pages from Pages;
@@ -22,6 +23,8 @@ map Brochure from wikibus.brochures {
 		schema.image template legacyImageId with LegacyImage;
 		schema.primaryImageOfPage template legacyImageId with LegacyImage;
 		dtype.orderIndex from Version;
+		wba.wishlistItem template "wishlist/{Id}";
+		schema.identifier from Id;
 }
 
 map BrochureFile from wikibus.brochures {
@@ -44,11 +47,11 @@ map BrochureLegacyImage from wikibus.brochures {
 
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with LegacyImage as Literal;
-		schema.thumbnail template "brochure-image-thumb-{0}" with LegacyImage as BlankNode;
+		schema.thumbnail template "brochure/{LegacyImage}/image/small" with LegacyImage;
 }
 
 map BrochureImageThumbnail from wikibus.brochures {
-	subject template "brochure-image-thumb-{0}" with LegacyImage as BlankNode;
+	subject template "brochure/{LegacyImage}/image/small" with LegacyImage;
 
     types
         schema.ImageObject

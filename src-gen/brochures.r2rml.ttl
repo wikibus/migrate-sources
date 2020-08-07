@@ -7,6 +7,7 @@ PREFIX schema: <http://schema.org/>
 PREFIX wba: <https://wikibus.org/api#>
 PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 
 <#Brochure>
 	rr:logicalTable [ rr:sqlQuery """select
@@ -35,6 +36,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:graphMap [ rr:template "brochure/{Id}" ; ] ;
 		rr:class wbo:Source ;
 		rr:class wbo:Brochure ;
+		rr:class hydra:Resource ;
 	];
 	
 	rr:predicateObjectMap [
@@ -43,6 +45,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 			rr:column "Pages" ;
 		];
 	];
+	
+	rr:predicateObjectMap [
+		rr:predicate wba:wishlistItem ;
+		rr:objectMap [
+			rr:template "wishlist/{Id}" ;
+		];
+	];
+
 	rr:predicateObjectMap [
 		rr:predicate opus:year ;
 		rr:objectMap [
@@ -121,6 +131,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate dtype:orderIndex ;
 		rr:objectMap [
 			rr:column "Version" ;
+		];
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate schema:identifier ;
+		rr:objectMap [
+			rr:column "Id" ;
 		];
 	]
 .
@@ -212,7 +228,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate schema:thumbnail ;
 		rr:objectMap [
 			rr:template "brochure/{LegacyImage}/image/small" ;
-			rr:termType rr:BlankNode ;
 		];
 	]
 .

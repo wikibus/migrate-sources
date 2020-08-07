@@ -6,6 +6,7 @@ map Magazine from wikibus.magazines {
 	types
 		wbo.Source
 		schema.Periodical
+		hydra.Resource
 
 	properties
 		dcterms.title from Name;
@@ -39,9 +40,10 @@ map MagazineIssue from wikibus.magazineIssues {
 
 	types
 		wbo.Source
+		hydra.Resource
 
 	properties
-		bibo.pages from Pages with datatype xsd.int;
+		bibo.pages from Pages;
 		opus.year from Year with datatype xsd.gYear;
 		opus.month from Month with datatype xsd.gMonth;
 		dcterms.date template date with Year Month Day;

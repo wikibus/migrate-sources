@@ -100,7 +100,7 @@ vocabulary schema {
 		thumbnail
 		owns
 		isbn
-		name
+		identifier
 		author
 		isPartOf
 		issueNumber
@@ -109,3 +109,14 @@ vocabulary schema {
 		URL
 }
 
+vocabulary hydra {
+	prefix hydra "http://www.w3.org/ns/hydra/core#"
+
+	classes
+		Resource
+
+	properties
+		property
+		object
+		subject
+}

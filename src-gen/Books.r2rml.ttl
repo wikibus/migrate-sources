@@ -6,6 +6,7 @@ PREFIX opus: <http://lsdis.cs.uga.edu/projects/semdis/opus#>
 PREFIX schema: <http://schema.org/>
 PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 
 <#Book>
 	rr:logicalTable [ rr:sqlQuery """select
@@ -31,6 +32,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:class wbo:Book ;
 		rr:class schema:Book ;
 		rr:class bibo:Book ;
+		rr:class hydra:Resource ;
 	];
 	
 	rr:predicateObjectMap [
@@ -73,13 +75,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate schema:image ;
 		rr:objectMap [
-			rr:template "image/{LegacyImage}" ;
+			rr:template "book/{LegacyImage}/image" ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate schema:primaryImageOfPage ;
 		rr:objectMap [
-			rr:template "image/{LegacyImage}" ;
+			rr:template "book/{LegacyImage}/image" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -212,7 +214,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:subjectMap [
 		rr:template "book/{LegacyImage}/image/small" ;
 		rr:class schema:ImageObject ;
-		rr:termType rr:BlankNode ;
 		rr:graphMap [ rr:template "book/{Id}" ; ] ;
 	];
 	
