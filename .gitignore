@@ -2,3 +2,5 @@ ontop-scripts/ontop
 ontop-scripts/log
 scripts/ldf-exec
 output
+.env
+node_modules

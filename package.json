@@ -1,0 +1,16 @@
+{
+  "name": "migrate-sources",
+  "version": "0.0.0",
+  "scripts": {
+    "start":"dotenv -- npm run transform",
+    "transform": "r2rml4net rml -c \"$SQL_CONNECTION\" -m ./src-gen -b https://wikibus-sources.lndo.site/ -e http://wikibus-store.lndo.site/wikibus/update --user test --pass password"
+  },
+  "dependencies": {
+    "dotenv-cli": "3.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikibus/migrate-sources.git"
+  },
+  "private": true
+}
