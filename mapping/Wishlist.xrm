@@ -11,34 +11,33 @@ map Wishlist from wikibus.wishlist {
 		wbo.^source template brochureId with SourceId;
 		wbo.done from Done with datatype xsd.boolean;
 		wbo.user template userId with User;
-		dtype.revision constant 1;
 }
 
 map WishlistCollections from wikibus.wishlist {
 	subject template wishlistCollectionId with User;
 
 	types
-		wbo.WishlistCollection
+		wba.WishlistCollection
 		hydra.Collection
 
 	properties
 		wbo.user template userId with User;
-		wbo.^source template brochureId with SourceId;
 		hydra.manages template "wishlist-{0}-manages-type" with User as BlankNode;
+		hydra.manages template "wishlist-{0}-manages-user" with User as BlankNode;
 }
 
 map WishlistCollectionsManagesType from wikibus.wishlist {
 	subject template "wishlist-{0}-manages-type" with User as BlankNode;
 
 	properties
-		hydra.property rdf.type
-		hydra.object wba.WishlistItem
+		hydra.property constant "rdf.type";
+		hydra.object constant "wba.WishlistItem";
 }
 
 map WishlistCollectionsManagesUser from wikibus.wishlist {
-	subject template "wishlist-{0}-manages-type" with User as BlankNode;
+	subject template "wishlist-{0}-manages-user" with User as BlankNode;
 
 	properties
-		hydra.subject wbo.User
-		hydra.property wbo.user
+		hydra.object template userId with User;
+		hydra.property constant "wbo.user";
 }

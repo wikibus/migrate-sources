@@ -11,6 +11,9 @@ vocabulary wbo {
 		Book
 		WishlistItem
 		StorageLocation
+		WishlistCollection
+		Wishlist
+		User
 
 	properties
 		name
@@ -110,13 +113,22 @@ vocabulary schema {
 }
 
 vocabulary hydra {
-	prefix hydra "http://www.w3.org/ns/hydra/core#"
+	prefix "hydra" "http://www.w3.org/ns/hydra/core#"
 
 	classes
 		Resource
+		Collection
 
 	properties
 		property
 		object
-		subject
+		^subject
+		manages
+}
+
+vocabulary rdf {
+	prefix "rdf" "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+
+	properties
+		^type
 }

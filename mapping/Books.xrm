@@ -1,5 +1,7 @@
 output r2rml
 
+template bookImageId = "book/{0}/image"
+
 map Book from wikibus.books {
 	subject template bookId with Id;
 
@@ -20,8 +22,8 @@ map Book from wikibus.books {
 		dcterms.title from BookTitle;
 		schema.isbn from BookISBN;
 		dcterms.language template languageId with Language;
-		schema.image template legacyImageId with LegacyImage;
-		schema.primaryImageOfPage template legacyImageId with LegacyImage;
+		schema.image template bookImageId with LegacyImage;
+		schema.primaryImageOfPage template bookImageId with LegacyImage;
 		schema.author template "book-{0}-author" with Id as BlankNode;
 		dtype.orderIndex from Version;
 }
@@ -41,18 +43,18 @@ map BookAuthors from wikibus.books {
 }
 
 map BookLegacyImage from wikibus.books {
-	subject template legacyImageId with LegacyImage;
+	subject template bookImageId with LegacyImage;
 
     types
         schema.ImageObject
 
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/book/{0}/image" with LegacyImage as Literal;
-		schema.thumbnail template "book/{LegacyImage}/image/small" with LegacyImage;
+		schema.thumbnail template "book/{0}/image/small" with LegacyImage;
 }
 
 map BookImageThumbnail from wikibus.books {
-	subject template "book/{LegacyImage}/image/small" with LegacyImage;
+	subject template "book/{0}/image/small" with LegacyImage;
 
     types
         schema.ImageObject

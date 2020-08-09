@@ -1,5 +1,7 @@
 output r2rml
 
+template brochureImageId = "brochure/{0}/image"
+
 map Brochure from wikibus.brochures {
 	subject template brochureId with Id;
 
@@ -20,10 +22,10 @@ map Brochure from wikibus.brochures {
 		dcterms.identifier from FolderCode;
 		schema.contributor template userId with User;
 		schema.associatedMedia template brochurePdfId with Id;
-		schema.image template legacyImageId with LegacyImage;
-		schema.primaryImageOfPage template legacyImageId with LegacyImage;
+		schema.image template brochureImageId with LegacyImage;
+		schema.primaryImageOfPage template brochureImageId with LegacyImage;
 		dtype.orderIndex from Version;
-		wba.wishlistItem template "wishlist/{Id}";
+		wba.wishlistItem template "wishlist/{0}" with Id;
 		schema.identifier from Id;
 }
 
@@ -40,18 +42,18 @@ map BrochureFile from wikibus.brochures {
 }
 
 map BrochureLegacyImage from wikibus.brochures {
-	subject template legacyImageId with LegacyImage;
+	subject template brochureImageId with LegacyImage;
 
     types
         schema.ImageObject
 
 	properties
 		schema.contentUrl template "https://wikibus-sources.herokuapp.com/brochure/{0}/image" with LegacyImage as Literal;
-		schema.thumbnail template "brochure/{LegacyImage}/image/small" with LegacyImage;
+		schema.thumbnail template "brochure/{0}/image/small" with LegacyImage;
 }
 
 map BrochureImageThumbnail from wikibus.brochures {
-	subject template "brochure/{LegacyImage}/image/small" with LegacyImage;
+	subject template "brochure/{0}/image/small" with LegacyImage;
 
     types
         schema.ImageObject

@@ -2,12 +2,12 @@ PREFIX rr: <http://www.w3.org/ns/r2rml#>
 PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX opus: <http://lsdis.cs.uga.edu/projects/semdis/opus#>
 PREFIX schema: <http://schema.org/>
 PREFIX wba: <https://wikibus.org/api#>
 PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 
 <#Brochure>
 	rr:logicalTable [ rr:sqlQuery """select
@@ -45,14 +45,6 @@ PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 			rr:column "Pages" ;
 		];
 	];
-	
-	rr:predicateObjectMap [
-		rr:predicate wba:wishlistItem ;
-		rr:objectMap [
-			rr:template "wishlist/{Id}" ;
-		];
-	];
-
 	rr:predicateObjectMap [
 		rr:predicate opus:year ;
 		rr:objectMap [
@@ -132,7 +124,13 @@ PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 		rr:objectMap [
 			rr:column "Version" ;
 		];
-	] ;
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:wishlistItem ;
+		rr:objectMap [
+			rr:template "wishlist/{Id}" ;
+		];
+	];
 	rr:predicateObjectMap [
 		rr:predicate schema:identifier ;
 		rr:objectMap [

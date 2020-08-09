@@ -1,4 +1,7 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX wba: <https://wikibus.org/api#>
 PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
@@ -9,6 +12,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:template "wishlist/{User}/{SourceId}" ;
 		rr:graphMap [ rr:template "wishlist/{User}/{SourceId}" ] ;
 		rr:class wbo:WishlistItem ;
+		rr:class hydra:Resource ;
 	];
 	
 	rr:predicateObjectMap [
@@ -28,6 +32,87 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate wbo:user ;
 		rr:objectMap [
 			rr:template "https://users.wikibus.org/user/{User}" ;
+		];
+	]
+.
+<#WishlistCollections>
+	rr:logicalTable [ rr:sqlQuery """select Id, rtrim([User]) as [User], SourceId, Done from Sources.Wishlist""" ];
+	
+	rr:subjectMap [
+		rr:template "wishlist/{User}" ;
+		rr:class wba:WishlistCollection ;
+		rr:class hydra:Collection ;
+		rr:graphMap [
+			rr:template "wishlist/{User}"
+		]
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate wbo:user ;
+		rr:objectMap [
+			rr:template "https://users.wikibus.org/user/{User}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate hydra:manages ;
+		rr:objectMap [
+			rr:template "wishlist-{User}-manages-type" ;
+			rr:termType rr:BlankNode ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate hydra:manages ;
+		rr:objectMap [
+			rr:template "wishlist-{User}-manages-user" ;
+			rr:termType rr:BlankNode ;
+		];
+	]
+.
+<#WishlistCollectionsManagesType>
+	rr:logicalTable [ rr:sqlQuery """select Id, rtrim([User]) as [User], SourceId, Done from Sources.Wishlist""" ];
+	
+	rr:subjectMap [
+		rr:template "wishlist-{User}-manages-type" ;
+		rr:termType rr:BlankNode ;
+		rr:graphMap [
+			rr:template "wishlist/{User}"
+		]
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate hydra:property ;
+		rr:objectMap [
+			rr:constant rdf:type ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate hydra:object ;
+		rr:objectMap [
+			rr:constant wbo:WishlistItem ;
+		];
+	]
+.
+<#WishlistCollectionsManagesUser>
+	rr:logicalTable [ rr:sqlQuery """select Id, rtrim([User]) as [User], SourceId, Done from Sources.Wishlist""" ];
+	
+	rr:subjectMap [
+		rr:template "wishlist-{User}-manages-user" ;
+		rr:termType rr:BlankNode ;
+		rr:graphMap [
+			rr:template "wishlist/{User}"
+		]
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate hydra:object ;
+		rr:objectMap [
+			rr:template "https://users.wikibus.org/user/{UserId}" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate hydra:property ;
+		rr:objectMap [
+			rr:constant wbo:user ;
 		];
 	]
 .

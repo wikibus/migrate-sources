@@ -2,12 +2,12 @@ PREFIX rr: <http://www.w3.org/ns/r2rml#>
 PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX opus: <http://lsdis.cs.uga.edu/projects/semdis/opus#>
 PREFIX schema: <http://schema.org/>
 PREFIX wba: <https://wikibus.org/api#>
 PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 
 <#Magazine>
 	rr:logicalTable [ rr:sqlQuery """select *,
@@ -85,7 +85,8 @@ PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 	rr:predicateObjectMap [
 		rr:predicate schema:thumbnail ;
 		rr:objectMap [
-			rr:template "magazine/{MagazineSlug}/issue/{LegacyImage}/image/small" ;
+			rr:template "image-thumb-{Id}" ;
+			rr:termType rr:BlankNode ;
 		];
 	]
 .
@@ -154,7 +155,6 @@ PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 	
 	rr:subjectMap [
 		rr:template "magazine/{MagazineSlug}/issue/{Id}" ;
-		rr:graphMap [ rr:template "magazine/{MagazineSlug}/issue/{Id}" ; ] ;
 		rr:class wbo:Source ;
 		rr:class hydra:Resource ;
 	];
