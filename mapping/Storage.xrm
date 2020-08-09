@@ -5,6 +5,7 @@ map StorageLocation from wikibus.sources {
 
 	types
 		wbo.StorageLocation
+		hydra.Resource
 
 	properties
 		schema.containedInPlace template fileCabinetId with FileCabinet;

@@ -13,6 +13,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:template "storage-location/{Id}" ;
 		rr:graphMap [ rr:template "storage-location/{Id}" ] ;
 		rr:class wbo:StorageLocation ;
+		rr:class hydra:Resource ;
 	];
 	
 	rr:predicateObjectMap [

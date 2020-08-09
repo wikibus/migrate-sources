@@ -1,4 +1,5 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX wba: <https://wikibus.org/api#>
 PREFIX wbo: <https://wikibus.org/ontology#>
