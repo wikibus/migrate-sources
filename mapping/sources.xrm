@@ -18,8 +18,7 @@ source-group wikibus {
        Month,
        Day,
        IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
-       FileCabinet,
-       FileOffset,
+       IIF(FileCabinet is NULL, NULL, Id) as FileCabinet,
        FolderCode,
        FolderName,
        rtrim([User]) as [User],
@@ -40,7 +39,6 @@ where SourceType = 'folder'"
 			Day
 			Notes
 			FileCabinet
-			FileOffset
 			FolderCode
 			FolderName
 			User
@@ -182,5 +180,14 @@ where s.SourceType = 'magissue'"
 			User
 			SourceId
 			Done
+	}
+
+	logical-source cabinets {
+		source "[Priv].[FileCabinet]"
+
+		referenceables
+			Id
+			Description
+			CompartmentsCount
 	}
 }

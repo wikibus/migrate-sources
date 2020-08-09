@@ -1,6 +1,8 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
-PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
 PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
@@ -14,9 +16,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate dcterms:identifier ;
+		rr:predicate schema:containedInPlace ;
 		rr:objectMap [
-			rr:column "FileCabinet" ;
+			rr:template "file-cabinet/{FileCabinet}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -24,6 +26,29 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:column "FileOffset" ;
 			rr:datatype xsd:int ;
+		];
+	]
+.
+<#FileCabinets>
+	rr:logicalTable [ rr:tableName "[Priv].[FileCabinet]" ];
+	
+	rr:subjectMap [
+		rr:template "file-cabinet/{Id}" ;
+		rr:class wbo:StorageContainer ;
+		rr:class hydra:Resource ;
+		rr:graphMap [ rr:template "file-cabinet/{Id}" ] ;
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate rdfs:label ;
+		rr:objectMap [
+			rr:column "Description" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wbo:size ;
+		rr:objectMap [
+			rr:column "CompartmentsCount" ;
 		];
 	]
 .

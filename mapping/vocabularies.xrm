@@ -11,6 +11,7 @@ vocabulary wbo {
 		Book
 		WishlistItem
 		StorageLocation
+		StorageContainer
 		WishlistCollection
 		Wishlist
 		User
@@ -20,10 +21,14 @@ vocabulary wbo {
 		^source
 		done
 		user
+		size
 }
 
 vocabulary wba {
 	prefix "wba" "https://wikibus.org/api#"
+
+	classes
+		WishlistCollection
 
 	properties
 		images
@@ -81,6 +86,13 @@ vocabulary dtype {
 		orderIndex
 }
 
+vocabulary rdfs {
+	prefix "rdfs" "http://www.w3.org/2000/01/rdf-schema#"
+
+	properties
+		label
+}
+
 vocabulary schema {
 	prefix "schema" "http://schema.org/"
 
@@ -107,6 +119,7 @@ vocabulary schema {
 		author
 		isPartOf
 		issueNumber
+		containedInPlace
 
 	datatypes
 		URL

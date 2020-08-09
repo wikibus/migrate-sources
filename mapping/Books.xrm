@@ -1,6 +1,6 @@
 output r2rml
 
-template bookImageId = "book/{0}/image"
+template bookImageId "book/{0}/image"
 
 map Book from wikibus.books {
 	subject template bookId with Id;

@@ -1,6 +1,6 @@
 output r2rml
 
-template magazineIssueImageId = "magazine/{0}/issue/{1}/image"
+template magazineIssueImageId "magazine/{0}/issue/{1}/image"
 
 map Magazine from wikibus.magazines {
 	subject template magazineId with Slug;
@@ -28,7 +28,7 @@ map MagazineIssueLegacyImage from wikibus.magazineIssues {
 }
 
 map MagazineIssueImageThumbnail from wikibus.magazineIssues {
-	subject template magazine/{0}/issue/{1}/image/small" with MagazineSlug LegacyImage as BlankNode;
+	subject template "magazine/{0}/issue/{1}/image/small" with MagazineSlug LegacyImage as BlankNode;
 
     types
         schema.ImageObject

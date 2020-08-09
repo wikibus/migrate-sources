@@ -7,6 +7,18 @@ map StorageLocation from wikibus.sources {
 		wbo.StorageLocation
 
 	properties
-		dcterms.identifier from FileCabinet;
+		schema.containedInPlace template fileCabinetId with FileCabinet;
 		dtype.position from FileOffset with datatype xsd.int;
+}
+
+map FileCabinets from wikibus.cabinets {
+	subject template fileCabinetId with Id;
+
+	types
+		wbo.StorageContainer
+		hydra.Resource
+
+	properties
+		rdfs.label from Description;
+		wbo.size from CompartmentsCount;
 }

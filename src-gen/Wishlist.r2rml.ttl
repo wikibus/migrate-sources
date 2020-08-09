@@ -1,6 +1,5 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wba: <https://wikibus.org/api#>
 PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -106,7 +105,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate hydra:object ;
 		rr:objectMap [
-			rr:template "https://users.wikibus.org/user/{UserId}" ;
+			rr:template "https://users.wikibus.org/user/{User}" ;
 		];
 	];
 	rr:predicateObjectMap [
