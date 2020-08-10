@@ -29,7 +29,7 @@ map MagazineIssueLegacyImage from wikibus.magazineIssues {
 }
 
 map MagazineIssueImageThumbnail from wikibus.magazineIssues {
-	subject template "magazine/{0}/issue/{1}/image/small" with MagazineSlug LegacyImage as BlankNode;
+	subject template "magazine/{0}/issue/{1}/image/small" with MagazineSlug LegacyImage;
 
     types
         schema.ImageObject
