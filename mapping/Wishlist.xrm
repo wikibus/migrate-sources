@@ -30,8 +30,8 @@ map WishlistCollectionsManagesType from wikibus.wishlist {
 	subject template "wishlist-{0}-manages-type" with User as BlankNode;
 
 	properties
-		hydra.property constant "rdf.type";
-		hydra.object constant "wba.WishlistItem";
+		hydra.property constant "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+		hydra.object constant "https://wikibus.org/ontology#WishlistItem";
 }
 
 map WishlistCollectionsManagesUser from wikibus.wishlist {
@@ -39,5 +39,5 @@ map WishlistCollectionsManagesUser from wikibus.wishlist {
 
 	properties
 		hydra.object template userId with User;
-		hydra.property constant "wbo.user";
+		hydra.property constant "https://wikibus.org/ontology#user";
 }
