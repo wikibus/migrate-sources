@@ -23,7 +23,8 @@ source-group wikibus {
        FolderName,
        rtrim([User]) as [User],
        cast(Updated as BIGINT) as Version,
-       ContentSize,
+       ContentSize as ByteSize,
+	   cast(round(cast(ContentSize as decimal) / 1024 / 1024, 2) as decimal(4,2)) as ContentSize,
        ContentUrl,
        IIF(rtrim(value) = '', NULL, value) as Language,
 	   IIF(Image is NULL, NULL, Id) as LegacyImage

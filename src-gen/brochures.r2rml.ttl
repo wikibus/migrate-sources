@@ -1,5 +1,6 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
 PREFIX bibo: <http://purl.org/ontology/bibo/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
@@ -22,7 +23,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderName,
 	       rtrim([User]) as [User],
 	       cast(Updated as BIGINT) as Version,
-	       ContentSize,
+	       ContentSize as ByteSize,
+		   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
 	       ContentUrl,
 	       IIF(rtrim(value) = '', NULL, value) as Language,
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
@@ -156,7 +158,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderName,
 	       rtrim([User]) as [User],
 	       cast(Updated as BIGINT) as Version,
-	       ContentSize,
+	       ContentSize as ByteSize,
+		   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
 	       ContentUrl,
 	       IIF(rtrim(value) = '', NULL, value) as Language,
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
@@ -174,6 +177,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate schema:contentSize ;
 		rr:objectMap [
 			rr:column "ContentSize" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcat:byteSize ;
+		rr:objectMap [
+			rr:column "ByteSize" ;
 			rr:datatype xsd:long ;
 		];
 	];
@@ -204,7 +213,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderName,
 	       rtrim([User]) as [User],
 	       cast(Updated as BIGINT) as Version,
-	       ContentSize,
+	       ContentSize as ByteSize,
+		   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
 	       ContentUrl,
 	       IIF(rtrim(value) = '', NULL, value) as Language,
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
@@ -245,7 +255,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderName,
 	       rtrim([User]) as [User],
 	       cast(Updated as BIGINT) as Version,
-	       ContentSize,
+	       ContentSize as ByteSize,
+		   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
 	       ContentUrl,
 	       IIF(rtrim(value) = '', NULL, value) as Language,
 		   IIF(Image is NULL, NULL, Id) as LegacyImage
