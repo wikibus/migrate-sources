@@ -1,5 +1,4 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX wba: <https://wikibus.org/api#>
 PREFIX wbo: <https://wikibus.org/ontology#>
@@ -82,13 +81,13 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate hydra:property ;
 		rr:objectMap [
-			rr:constant rdf:type ;
+			rr:constant <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ;
 		];
 	];
 	rr:predicateObjectMap [
 		rr:predicate hydra:object ;
 		rr:objectMap [
-			rr:constant wbo:WishlistItem ;
+			rr:constant <https://wikibus.org/ontology#WishlistItem> ;
 		];
 	]
 .
@@ -112,7 +111,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	rr:predicateObjectMap [
 		rr:predicate hydra:property ;
 		rr:objectMap [
-			rr:constant wbo:user ;
+			rr:constant <https://wikibus.org/ontology#user> ;
 		];
 	]
 .
