@@ -5,6 +5,7 @@ PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX opus: <http://lsdis.cs.uga.edu/projects/semdis/opus#>
 PREFIX schema: <http://schema.org/>
+PREFIX wba: <https://wikibus.org/api#>
 PREFIX wbo: <https://wikibus.org/ontology#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
@@ -95,6 +96,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate dtype:orderIndex ;
 		rr:objectMap [
 			rr:column "Version" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:images ;
+		rr:objectMap [
+			rr:template "source/{Id}/images" ;
 		];
 	]
 .

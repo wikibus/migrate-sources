@@ -26,6 +26,7 @@ map Book from wikibus.books {
 		schema.primaryImageOfPage template bookImageId with LegacyImage;
 		schema.author template "book-{0}-author" with Id as BlankNode;
 		dtype.orderIndex from Version;
+		wba.images template sourceImageCollection with Id;
 }
 
 map BookOwners from wikibus.books {

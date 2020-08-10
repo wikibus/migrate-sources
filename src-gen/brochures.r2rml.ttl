@@ -135,6 +135,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:column "Id" ;
 		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:images ;
+		rr:objectMap [
+			rr:template "source/{Id}/images" ;
+		];
 	]
 .
 <#BrochureFile>

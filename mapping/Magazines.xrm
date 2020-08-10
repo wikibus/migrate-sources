@@ -14,6 +14,7 @@ map Magazine from wikibus.magazines {
 		dcterms.title from Name;
 		dcterms.description from SubName;
 		wba.issues template magazineIssues with Slug;
+		wba.images template sourceImageCollection with Id;
 }
 
 map MagazineIssueLegacyImage from wikibus.magazineIssues {
@@ -54,4 +55,5 @@ map MagazineIssue from wikibus.magazineIssues {
 		schema.contributor template userId with User;
 		schema.issueNumber from MagIssueNumber;
 		dtype.orderIndex from Version;
+		wba.images template sourceImageCollection with Id;
 }

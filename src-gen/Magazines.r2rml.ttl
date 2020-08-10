@@ -43,6 +43,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:objectMap [
 			rr:template "magazine/{Slug}/issues" ;
 		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:images ;
+		rr:objectMap [
+			rr:template "source/{Id}/images" ;
+		];
 	]
 .
 <#MagazineIssueLegacyImage>
@@ -213,6 +219,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate dtype:orderIndex ;
 		rr:objectMap [
 			rr:column "Version" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:images ;
+		rr:objectMap [
+			rr:template "source/{Id}/images" ;
 		];
 	]
 .

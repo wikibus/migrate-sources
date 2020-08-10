@@ -27,6 +27,7 @@ map Brochure from wikibus.brochures {
 		dtype.orderIndex from Version;
 		wba.wishlistItem template "wishlist/{0}" with Id;
 		schema.identifier from Id;
+		wba.images template sourceImageCollection with Id;
 }
 
 map BrochureFile from wikibus.brochures {
