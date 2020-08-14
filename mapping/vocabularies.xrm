@@ -145,3 +145,10 @@ vocabulary rdf {
 	properties
 		^type
 }
+
+vocabulary dcat {
+	prefix "dcat" "http://www.w3.org/ns/dcat#"
+
+	properties
+		byteSize
+}

@@ -37,7 +37,8 @@ map BrochureFile from wikibus.brochures {
 		schema.MediaObject
 
 	properties
-		schema.contentSize from ContentSize with datatype xsd.long;
+		schema.contentSize from ContentSize;
+		dcat.byteSize from ByteSize with datatype xsd.long;
 		schema.encodingFormat constant "application/pdf";
 		schema.contentUrl from ContentUrl with datatype schema.URL;
 }

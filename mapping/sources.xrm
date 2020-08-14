@@ -24,7 +24,7 @@ source-group wikibus {
        rtrim([User]) as [User],
        cast(Updated as BIGINT) as Version,
        ContentSize as ByteSize,
-	   cast(round(cast(ContentSize as decimal) / 1024 / 1024, 2) as decimal(4,2)) as ContentSize,
+	   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
        ContentUrl,
        IIF(rtrim(value) = '', NULL, value) as Language,
 	   IIF(Image is NULL, NULL, Id) as LegacyImage
@@ -45,6 +45,7 @@ where SourceType = 'folder'"
 			User
 			Version
 			ContentSize
+			ByteSize
 			ContentUrl
 			Language
 			LegacyImage
