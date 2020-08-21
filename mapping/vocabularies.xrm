@@ -76,6 +76,8 @@ vocabulary dcterms {
 		language
 		title
 		description
+		created
+	 	modified
 }
 
 vocabulary dtype {

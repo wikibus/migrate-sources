@@ -29,7 +29,8 @@ source-group wikibus {
        FolderCode,
        FolderName,
        rtrim([User]) as [User],
-       cast(Updated as BIGINT) as Version,
+       DateCreated,
+       DateUpdated,
        ContentSize as ByteSize,
 	   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
        ContentUrl,
@@ -51,7 +52,8 @@ where SourceType = 'folder'"
 			FolderCode
 			FolderName
 			User
-			Version
+			DateCreated
+			DateUpdated
 			ContentSize
 			ByteSize
 			ContentUrl
@@ -69,7 +71,8 @@ where SourceType = 'folder'"
     BookISBN,
     BookAuthor,
     rtrim([User]) as [User],
-	cast(Updated as BIGINT) as Version,
+	DateCreated,
+    DateUpdated,
     IIF(rtrim(value) = '', NULL, value) as Language,
     IIF(Image is NULL, NULL, Id) as LegacyImage
 from Sources.Source
@@ -88,7 +91,8 @@ where SourceType = 'book'"
 			User
 			Language
 			LegacyImage
-			Version
+			DateCreated
+			DateUpdated
 	}
 
 	logical-source primaryImages {
@@ -152,7 +156,8 @@ from Sources.Magazine"
     s.FileOffset,
     s.MagIssueNumber,
     rtrim(s.[User]) as [User],
-    cast(s.Updated as BIGINT) as Version,
+    DateCreated,
+    DateUpdated,
     IIF(rtrim(value) = '', NULL, value) as Language,
     IIF(s.Image is NULL, NULL, s.Id) as LegacyImage,
     lower(replace(
@@ -177,7 +182,8 @@ where s.SourceType = 'magissue'"
 			MagazineSlug
 			MagIssueNumber
 			User
-			Version
+			DateCreated
+			DateUpdated
 			Language
 			LegacyImage
 	}

@@ -24,7 +24,8 @@ map Brochure from wikibus.brochures {
 		schema.associatedMedia template brochurePdfId with Id;
 		schema.image template brochureImageId with LegacyImage;
 		schema.primaryImageOfPage template brochureImageId with LegacyImage;
-		dtype.orderIndex from Version;
+		dcterms.created from DateCreated;
+		dcterms.modified from DateUpdated;
 		wba.wishlistItem template "wishlist/{0}" with Id;
 		schema.identifier from Id;
 		wba.images template sourceImageCollection with Id;

@@ -1,7 +1,6 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
 PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX opus: <http://lsdis.cs.uga.edu/projects/semdis/opus#>
 PREFIX schema: <http://schema.org/>
@@ -19,7 +18,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookISBN,
 	    BookAuthor,
 	    rtrim([User]) as [User],
-		cast(Updated as BIGINT) as Version,
+		DateCreated,
+	    DateUpdated,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
@@ -93,9 +93,15 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate dtype:orderIndex ;
+		rr:predicate dcterms:created ;
 		rr:objectMap [
-			rr:column "Version" ;
+			rr:column "DateCreated" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:modified ;
+		rr:objectMap [
+			rr:column "DateUpdated" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -115,7 +121,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookISBN,
 	    BookAuthor,
 	    rtrim([User]) as [User],
-		cast(Updated as BIGINT) as Version,
+		DateCreated,
+	    DateUpdated,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
@@ -144,7 +151,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookISBN,
 	    BookAuthor,
 	    rtrim([User]) as [User],
-		cast(Updated as BIGINT) as Version,
+		DateCreated,
+	    DateUpdated,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
@@ -174,7 +182,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookISBN,
 	    BookAuthor,
 	    rtrim([User]) as [User],
-		cast(Updated as BIGINT) as Version,
+		DateCreated,
+	    DateUpdated,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source
@@ -211,7 +220,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	    BookISBN,
 	    BookAuthor,
 	    rtrim([User]) as [User],
-		cast(Updated as BIGINT) as Version,
+		DateCreated,
+	    DateUpdated,
 	    IIF(rtrim(value) = '', NULL, value) as Language,
 	    IIF(Image is NULL, NULL, Id) as LegacyImage
 	from Sources.Source

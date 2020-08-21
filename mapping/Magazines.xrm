@@ -54,6 +54,7 @@ map MagazineIssue from wikibus.magazineIssues {
 		schema.isPartOf template magazineId with MagazineSlug;
 		schema.contributor template userId with User;
 		schema.issueNumber from MagIssueNumber;
-		dtype.orderIndex from Version;
+		dcterms.created from DateCreated;
+		dcterms.modified from DateUpdated;
 		wba.images template sourceImageCollection with Id;
 }

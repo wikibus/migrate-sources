@@ -2,7 +2,6 @@ PREFIX rr: <http://www.w3.org/ns/r2rml#>
 PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX opus: <http://lsdis.cs.uga.edu/projects/semdis/opus#>
 PREFIX schema: <http://schema.org/>
@@ -23,7 +22,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderCode,
 	       FolderName,
 	       rtrim([User]) as [User],
-	       cast(Updated as BIGINT) as Version,
+	       DateCreated,
+	       DateUpdated,
 	       ContentSize as ByteSize,
 		   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
 	       ContentUrl,
@@ -122,9 +122,15 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate dtype:orderIndex ;
+		rr:predicate dcterms:created ;
 		rr:objectMap [
-			rr:column "Version" ;
+			rr:column "DateCreated" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate dcterms:modified ;
+		rr:objectMap [
+			rr:column "DateUpdated" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -159,7 +165,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderCode,
 	       FolderName,
 	       rtrim([User]) as [User],
-	       cast(Updated as BIGINT) as Version,
+	       DateCreated,
+	       DateUpdated,
 	       ContentSize as ByteSize,
 		   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
 	       ContentUrl,
@@ -215,7 +222,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderCode,
 	       FolderName,
 	       rtrim([User]) as [User],
-	       cast(Updated as BIGINT) as Version,
+	       DateCreated,
+	       DateUpdated,
 	       ContentSize as ByteSize,
 		   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
 	       ContentUrl,
@@ -258,7 +266,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       FolderCode,
 	       FolderName,
 	       rtrim([User]) as [User],
-	       cast(Updated as BIGINT) as Version,
+	       DateCreated,
+	       DateUpdated,
 	       ContentSize as ByteSize,
 		   concat(cast(round(cast(ContentSize as decimal) / 1024 /1024, 2) as decimal(4,2)), ' MB') as ContentSize,
 	       ContentUrl,
