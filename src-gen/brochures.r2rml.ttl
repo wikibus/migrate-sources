@@ -18,7 +18,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Month,
 	       Day,
 	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
-	       IIF(FileCabinet is NULL, NULL, Id) as FileCabinet,
+		   FileCabinet,
+		   FileOffset,
 	       FolderCode,
 	       FolderName,
 	       rtrim([User]) as [User],
@@ -67,9 +68,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate wba:storageLocation ;
+		rr:predicate schema:containedInPlace ;
 		rr:objectMap [
-			rr:template "storage-location/{FileCabinet}" ;
+			rr:template "file-cabinet/{FileCabinet}/{FileOffset}" ;
 		];
 	];
 	rr:predicateObjectMap [
@@ -153,7 +154,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Month,
 	       Day,
 	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
-	       IIF(FileCabinet is NULL, NULL, Id) as FileCabinet,
+		   FileCabinet,
+		   FileOffset,
 	       FolderCode,
 	       FolderName,
 	       rtrim([User]) as [User],
@@ -208,7 +210,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Month,
 	       Day,
 	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
-	       IIF(FileCabinet is NULL, NULL, Id) as FileCabinet,
+		   FileCabinet,
+		   FileOffset,
 	       FolderCode,
 	       FolderName,
 	       rtrim([User]) as [User],
@@ -250,7 +253,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 	       Month,
 	       Day,
 	       IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
-	       IIF(FileCabinet is NULL, NULL, Id) as FileCabinet,
+		   FileCabinet,
+		   FileOffset,
 	       FolderCode,
 	       FolderName,
 	       rtrim([User]) as [User],

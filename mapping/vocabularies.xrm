@@ -32,10 +32,10 @@ vocabulary wba {
 
 	properties
 		images
-		storageLocation
 		wishlistItem
 		driveImportFolder
 		issues
+		compartments
 }
 
 vocabulary opus {
@@ -118,6 +118,7 @@ vocabulary schema {
 		identifier
 		author
 		isPartOf
+		hasPart
 		issueNumber
 		containedInPlace
 

@@ -50,7 +50,7 @@ map MagazineIssue from wikibus.magazineIssues {
 		opus.year from Year with datatype xsd.gYear;
 		opus.month from Month with datatype xsd.gMonth;
 		dcterms.date template date with Year Month Day;
-		wba.storageLocation template storageLocationId with Id;
+		schema.containedInPlace template storageLocationId with FileCabinet FileOffset;
 		schema.isPartOf template magazineId with MagazineSlug;
 		schema.contributor template userId with User;
 		schema.issueNumber from MagIssueNumber;

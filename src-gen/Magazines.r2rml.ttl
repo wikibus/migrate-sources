@@ -192,9 +192,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		];
 	];
 	rr:predicateObjectMap [
-		rr:predicate wba:storageLocation ;
+		rr:predicate schema:containedInPlace ;
 		rr:objectMap [
-			rr:template "storage-location/{Id}" ;
+			rr:template "file-cabinet/{FileCabinet}/{FileOffset}" ;
 		];
 	];
 	rr:predicateObjectMap [

@@ -1,19 +1,30 @@
 output r2rml
 
 map StorageLocation from wikibus.sources {
-	subject template storageLocationId with Id;
+	subject template storageLocationId with FileCabinet FileOffset;
 
-	types
-		wbo.StorageLocation
-		hydra.Resource
+	// graphs
+	//   template storageLocationId with FileCabinet FileOffset;
 
 	properties
-		schema.containedInPlace template fileCabinetId with FileCabinet;
-		dtype.position from FileOffset with datatype xsd.int;
+		rdfs.label template "{0} ({1})" with FileCabinetName FileOffset as Literal;
+}
+
+map CabinetParts from wikibus.sources {
+	subject template fileCabinetId with FileCabinet;
+
+	// graphs
+	//   template fileCabinetId with FileCabinet;
+
+	properties
+		schema.hasPart template storageLocationId with FileCabinet FileOffset;
 }
 
 map FileCabinets from wikibus.cabinets {
 	subject template fileCabinetId with Id;
+
+	// graphs
+	//   template fileCabinetId with Id;
 
 	types
 		wbo.StorageContainer
@@ -22,4 +33,5 @@ map FileCabinets from wikibus.cabinets {
 	properties
 		rdfs.label from Description;
 		wbo.size from CompartmentsCount;
+		wba.compartments template "file-cabinet/{0}/compartments" with Id;
 }

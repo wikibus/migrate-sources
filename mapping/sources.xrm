@@ -2,12 +2,18 @@ source-group wikibus {
 	type rdb
 
 	logical-source sources {
-		source query "select Id, FileCabinet, FileOffset from Sources.Source"
+		source query "select s.Id,
+			FileCabinet,
+			FileOffset,
+			fc.Description as FileCabinetName
+		from Sources.Source s
+        join Priv.FileCabinet fc on fc.Id = s.FileCabinet"
 
 		referenceables
 			Id
 			FileCabinet
 			FileOffset
+			FileCabinetName
 	}
 
 	logical-source brochures {
@@ -18,7 +24,8 @@ source-group wikibus {
        Month,
        Day,
        IIF(rtrim(Notes) = '', NULL, Notes) as Notes,
-       IIF(FileCabinet is NULL, NULL, Id) as FileCabinet,
+	   FileCabinet,
+	   FileOffset,
        FolderCode,
        FolderName,
        rtrim([User]) as [User],
@@ -40,6 +47,7 @@ where SourceType = 'folder'"
 			Day
 			Notes
 			FileCabinet
+			FileOffset
 			FolderCode
 			FolderName
 			User

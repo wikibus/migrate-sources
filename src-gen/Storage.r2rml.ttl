@@ -1,32 +1,48 @@
 PREFIX rr: <http://www.w3.org/ns/r2rml#>
-PREFIX dtype: <http://www.linkedmodel.org/schema/dtype#>
 PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
+PREFIX wba: <https://wikibus.org/api#>
 PREFIX wbo: <https://wikibus.org/ontology#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 <#StorageLocation>
-	rr:logicalTable [ rr:sqlQuery """select Id, FileCabinet, FileOffset from Sources.Source""" ];
+	rr:logicalTable [ rr:sqlQuery """select s.Id,
+				FileCabinet,
+				FileOffset,
+				fc.Description as FileCabinetName
+			from Sources.Source s
+	        join Priv.FileCabinet fc on fc.Id = s.FileCabinet""" ];
 	
 	rr:subjectMap [
-		rr:template "storage-location/{Id}" ;
-		rr:graphMap [ rr:template "storage-location/{Id}" ] ;
-		rr:class wbo:StorageLocation ;
-		rr:class hydra:Resource ;
+		rr:template "file-cabinet/{FileCabinet}/{FileOffset}" ;
+		rr:graphMap [ rr:template "file-cabinet/{FileCabinet}/{FileOffset}" ; ];
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate schema:containedInPlace ;
+		rr:predicate rdfs:label ;
 		rr:objectMap [
-			rr:template "file-cabinet/{FileCabinet}" ;
+			rr:template "{FileCabinetName} ({FileOffset})" ;
+			rr:termType rr:Literal ;
 		];
+	]
+.
+<#CabinetParts>
+	rr:logicalTable [ rr:sqlQuery """select s.Id,
+				FileCabinet,
+				FileOffset,
+				fc.Description as FileCabinetName
+			from Sources.Source s
+	        join Priv.FileCabinet fc on fc.Id = s.FileCabinet""" ];
+	
+	rr:subjectMap [
+		rr:template "file-cabinet/{FileCabinet}" ;
+		rr:graphMap [ rr:template "file-cabinet/{FileCabinet}" ; ];
 	];
+	
 	rr:predicateObjectMap [
-		rr:predicate dtype:position ;
+		rr:predicate schema:hasPart ;
 		rr:objectMap [
-			rr:column "FileOffset" ;
-			rr:datatype xsd:int ;
+			rr:template "file-cabinet/{FileCabinet}/{FileOffset}" ;
 		];
 	]
 .
@@ -37,9 +53,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:template "file-cabinet/{Id}" ;
 		rr:class wbo:StorageContainer ;
 		rr:class hydra:Resource ;
-		rr:graphMap [ rr:template "file-cabinet/{Id}" ] ;
+		rr:graphMap [ rr:template "file-cabinet/{FileCabinet}" ; ];
 	];
-
+	
 	rr:predicateObjectMap [
 		rr:predicate rdfs:label ;
 		rr:objectMap [
@@ -50,6 +66,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 		rr:predicate wbo:size ;
 		rr:objectMap [
 			rr:column "CompartmentsCount" ;
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate wba:compartments ;
+		rr:objectMap [
+			rr:template "file-cabinet/{Id}/compartments" ;
 		];
 	]
 .
